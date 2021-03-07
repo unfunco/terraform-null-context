@@ -15,22 +15,22 @@
 locals {
   input = {
     enabled     = var.enabled == null ? var.context.enabled : var.enabled
-    namespace   = var.namespace == null ? var.context.namespace : var.namespace
+    customer    = var.customer == null ? var.context.name : var.customer
+    account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
-    name        = var.name == null ? var.context.name : var.name
   }
 
   enabled     = local.input.enabled
-  namespace   = lower(local.input.name)
+  customer    = lower(local.input.customer)
+  account     = lower(local.input.account)
   environment = lower(local.input.environment)
-  name        = lower(local.input.name)
 
-  id = join("-", [local.namespace, local.environment, local.name])
+  id = join("-", [local.customer, local.account, local.environment])
 
   output_context = {
     enabled     = local.enabled
-    namespace   = local.namespace
+    customer    = local.customer
+    account     = local.account
     environment = local.environment
-    name        = local.name
   }
 }

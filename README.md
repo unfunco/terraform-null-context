@@ -1,4 +1,6 @@
-# Terraform conventions
+# Terraform labelling
+
+Terraform module used to enforce consistent naming conventions within modules.
 
 ## Getting started
 

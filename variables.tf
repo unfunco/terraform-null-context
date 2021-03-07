@@ -15,9 +15,9 @@
 variable "context" {
   default = {
     enabled     = true
-    namespace   = null
+    customer    = null
+    account     = null
     environment = null
-    name        = null
   }
 
   description = "Single object used for setting the entire context at once."
@@ -30,20 +30,20 @@ variable "enabled" {
   type        = bool
 }
 
+variable "customer" {
+  default     = null
+  description = "Name of the customer."
+  type        = string
+}
+
+variable "account" {
+  default     = null
+  description = "Name of the account."
+  type        = string
+}
+
 variable "environment" {
   default     = null
   description = "Name of the environment."
-  type        = string
-}
-
-variable "name" {
-  default     = null
-  description = "Name of the application."
-  type        = string
-}
-
-variable "namespace" {
-  default     = null
-  description = "Namespace used to identify the resources."
   type        = string
 }

@@ -12,9 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+output "account" {
+  description = "Normalised name of the account."
+  value       = local.enabled ? local.account : ""
+}
+
 output "context" {
   description = "Merged but otherwise unmodified input to this module."
   value       = local.input
+}
+
+output "customer" {
+  description = "Normalised name of the customer."
+  value       = local.enabled ? local.customer : ""
 }
 
 output "environment" {
@@ -25,14 +35,4 @@ output "environment" {
 output "id" {
   description = "Disambiguated ID of the module."
   value       = local.enabled ? local.id : ""
-}
-
-output "name" {
-  description = "Normalised name of the application."
-  value       = local.enabled ? local.name : ""
-}
-
-output "namespace" {
-  description = "Normalised namespace used to identify the resources."
-  value       = local.enabled ? local.namespace : ""
 }
