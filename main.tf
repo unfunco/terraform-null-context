@@ -15,10 +15,11 @@
 locals {
   input = {
     enabled     = var.enabled == null ? var.context.enabled : var.enabled
-    customer    = var.customer == null ? var.context.name : var.customer
+    customer    = var.customer == null ? var.context.customer : var.customer
     account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
     thing       = var.thing == null ? var.context.thing : var.thing
+    attributes  = var.attributes == [] ? var.context.attributes : var.attributes
   }
 
   enabled     = local.input.enabled
@@ -26,6 +27,8 @@ locals {
   account     = lower(local.input.account)
   environment = lower(local.input.environment)
   thing       = lower(local.input.thing)
+
+  attributes = [for a in local.input.attributes : lower(a)]
 
   id = join("-", [local.customer, local.account, local.environment, local.thing])
 

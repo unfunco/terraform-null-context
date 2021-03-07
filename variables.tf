@@ -19,10 +19,19 @@ variable "context" {
     account     = null
     environment = null
     thing       = null
+    attributes  = []
   }
 
   description = "Single object used for setting the entire context at once."
-  type        = any
+
+  type = object({
+    enabled     = bool
+    customer    = string
+    account     = string
+    environment = string
+    thing       = string
+    attributes  = list(string)
+  })
 }
 
 variable "enabled" {
@@ -53,4 +62,10 @@ variable "thing" {
   default     = null
   description = "Name of the thing being created."
   type        = string
+}
+
+variable "attributes" {
+  default     = []
+  description = "List of additional attributes."
+  type        = list(string)
 }
