@@ -36,3 +36,8 @@ output "id" {
   description = "Disambiguated ID of the module."
   value       = local.enabled ? local.id : ""
 }
+
+output "thing" {
+  description = ""
+  value       = local.enabled ? local.thing : ""
+}

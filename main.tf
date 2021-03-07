@@ -18,19 +18,22 @@ locals {
     customer    = var.customer == null ? var.context.name : var.customer
     account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
+    thing       = var.thing == null ? var.context.thing : var.thing
   }
 
   enabled     = local.input.enabled
   customer    = lower(local.input.customer)
   account     = lower(local.input.account)
   environment = lower(local.input.environment)
+  thing       = lower(local.input.thing)
 
-  id = join("-", [local.customer, local.account, local.environment])
+  id = join("-", [local.customer, local.account, local.environment, local.thing])
 
   output_context = {
     enabled     = local.enabled
     customer    = local.customer
     account     = local.account
     environment = local.environment
+    thing       = local.thing
   }
 }

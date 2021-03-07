@@ -18,6 +18,7 @@ variable "context" {
     customer    = null
     account     = null
     environment = null
+    thing       = null
   }
 
   description = "Single object used for setting the entire context at once."
@@ -45,5 +46,11 @@ variable "account" {
 variable "environment" {
   default     = null
   description = "Name of the environment."
+  type        = string
+}
+
+variable "thing" {
+  default     = null
+  description = "Name of the thing being created."
   type        = string
 }
