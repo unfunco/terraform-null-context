@@ -41,7 +41,7 @@ locals {
   label_order = ["namespace", "account", "environment", "component"]
   labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
 
-  id = join("-", concat(local.labels, local.attributes))
+  id = join("-", concat(distinct(local.labels), local.attributes))
 
   output_context = {
     enabled     = local.enabled
