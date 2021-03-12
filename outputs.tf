@@ -51,3 +51,8 @@ output "namespace" {
   description = "Normalised name of the namespace."
   value       = local.enabled ? local.namespace : ""
 }
+
+output "tags" {
+  description = "Normalised map of tags."
+  value       = local.enabled ? local.tags : {}
+}

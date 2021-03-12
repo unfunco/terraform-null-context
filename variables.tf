@@ -20,6 +20,7 @@ variable "context" {
     environment = null
     component   = null
     attributes  = []
+    tags        = {}
   }
 
   description = "Single object used for setting the entire context at once."
@@ -31,6 +32,7 @@ variable "context" {
     environment = string
     component   = string
     attributes  = list(string)
+    tags        = map(string)
   })
 }
 
@@ -68,4 +70,10 @@ variable "attributes" {
   default     = []
   description = "List of additional attributes."
   type        = list(string)
+}
+
+variable "tags" {
+  default     = {}
+  description = "Map of tags to be applied to resources."
+  type        = map(string)
 }
