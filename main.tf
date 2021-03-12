@@ -19,15 +19,15 @@ locals {
     account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
     component   = var.component == null ? var.context.component : var.component
-    attributes  = var.attributes == [] ? var.context.attributes : var.attributes
+    attributes  = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
   }
 
   enabled = local.input.enabled
 
-  namespace   = lower(local.input.namespace)
-  account     = lower(local.input.account)
-  environment = lower(local.input.environment)
-  component   = lower(local.input.component)
+  namespace   = local.input.namespace == null ? "" : lower(local.input.namespace)
+  account     = local.input.account == null ? "" : lower(local.input.account)
+  environment = local.input.environment == null ? "" : lower(local.input.environment)
+  component   = local.input.component == null ? "" : lower(local.input.component)
   attributes  = compact(distinct([for v in local.input.attributes : lower(v)]))
 
   local_context = {
