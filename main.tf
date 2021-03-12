@@ -15,28 +15,40 @@
 locals {
   input = {
     enabled     = var.enabled == null ? var.context.enabled : var.enabled
-    customer    = var.customer == null ? var.context.customer : var.customer
+    namespace   = var.namespace == null ? var.context.namespace : var.namespace
     account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
-    thing       = var.thing == null ? var.context.thing : var.thing
+    component   = var.component == null ? var.context.component : var.component
     attributes  = var.attributes == [] ? var.context.attributes : var.attributes
   }
 
-  enabled     = local.input.enabled
-  customer    = lower(local.input.customer)
+  enabled = local.input.enabled
+
+  namespace   = lower(local.input.namespace)
   account     = lower(local.input.account)
   environment = lower(local.input.environment)
-  thing       = lower(local.input.thing)
+  component   = lower(local.input.component)
+  attributes  = compact(distinct([for v in local.input.attributes : lower(v)]))
 
-  attributes = [for a in local.input.attributes : lower(a)]
+  local_context = {
+    namespace   = local.namespace
+    account     = local.account
+    environment = local.environment
+    component   = local.component
+    attributes  = local.attributes
+  }
 
-  id = join("-", [local.customer, local.account, local.environment, local.thing])
+  label_order = ["namespace", "account", "environment", "component"]
+  labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
+
+  id = join("-", concat(local.labels, local.attributes))
 
   output_context = {
     enabled     = local.enabled
-    customer    = local.customer
+    namespace   = local.namespace
     account     = local.account
     environment = local.environment
-    thing       = local.thing
+    component   = local.component
+    attributes  = local.attributes
   }
 }

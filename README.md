@@ -1,6 +1,6 @@
-# Terraform labeler
+# Terraform context
 
-Terraform module used to enforce consistent naming of things.
+Terraform module used to enforce naming and tagging conventions.
 
 ## Getting started
 
@@ -13,7 +13,7 @@ Terraform module used to enforce consistent naming of things.
 | Name          | Default | Description                                    |
 | ------------- | :-----: | ---------------------------------------------- |
 | `enabled`     | `true`  | Flag to enable/disable the creation of things. |
-| `customer`    | `null`  | Name of the customer.                          |
+| `namespace`   | `null`  | Name of the namespace.                         |
 | `account`     | `null`  | Name of the account.                           |
 | `environment` | `null`  | Name of the environment.                       |
 | `thing`       | `null`  | Name of the thing.                             |

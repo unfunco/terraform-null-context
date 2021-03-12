@@ -17,14 +17,24 @@ output "account" {
   value       = local.enabled ? local.account : ""
 }
 
+output "attributes" {
+  description = "List of normalised additional attributes."
+  value       = local.enabled ? local.attributes : []
+}
+
+output "component" {
+  description = "Normalised name of the component."
+  value       = local.enabled ? local.component : ""
+}
+
 output "context" {
-  description = "Merged but otherwise unmodified input to this module."
+  description = "Merged but otherwise unmodified input given to this module."
   value       = local.input
 }
 
-output "customer" {
-  description = "Normalised name of the customer."
-  value       = local.enabled ? local.customer : ""
+output "enabled" {
+  description = "Flag indicating whether the module is enabled."
+  value       = local.enabled
 }
 
 output "environment" {
@@ -37,7 +47,7 @@ output "id" {
   value       = local.enabled ? local.id : ""
 }
 
-output "thing" {
-  description = ""
-  value       = local.enabled ? local.thing : ""
+output "namespace" {
+  description = "Normalised name of the namespace."
+  value       = local.enabled ? local.namespace : ""
 }

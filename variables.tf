@@ -15,10 +15,10 @@
 variable "context" {
   default = {
     enabled     = true
-    customer    = null
+    namespace   = null
     account     = null
     environment = null
-    thing       = null
+    component   = null
     attributes  = []
   }
 
@@ -26,10 +26,10 @@ variable "context" {
 
   type = object({
     enabled     = bool
-    customer    = string
+    namespace   = string
     account     = string
     environment = string
-    thing       = string
+    component   = string
     attributes  = list(string)
   })
 }
@@ -40,9 +40,9 @@ variable "enabled" {
   type        = bool
 }
 
-variable "customer" {
+variable "namespace" {
   default     = null
-  description = "Name of the customer."
+  description = "Name of the namespace."
   type        = string
 }
 
@@ -58,9 +58,9 @@ variable "environment" {
   type        = string
 }
 
-variable "thing" {
+variable "component" {
   default     = null
-  description = "Name of the thing being created."
+  description = "Name of the component."
   type        = string
 }
 
