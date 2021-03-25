@@ -1,5 +1,5 @@
 enabled     = true
-namespace   = "example"
+identifier  = "example"
 account     = "nonlive"
 environment = "uat"
 component   = "bucket"

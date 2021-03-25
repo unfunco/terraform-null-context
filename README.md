@@ -15,7 +15,7 @@ module "this" {
   source = "git::git@github.com:honestempire/terraform-null-context.git?ref=main"
 
   enabled     = var.enabled
-  namespace   = var.namespace
+  identifier  = var.identifier
   account     = var.account
   environment = var.environment
   component   = var.component
@@ -29,7 +29,7 @@ module "this" {
 | Name          | Default | Description                                       |
 | ------------- | :-----: | ------------------------------------------------- |
 | `enabled`     | `true`  | Flag to enable/disable the creation of resources. |
-| `namespace`   | `null`  | Name of the namespace.                            |
+| `identifier`  | `null`  | Name of the identifier.                           |
 | `account`     | `null`  | Name of the account.                              |
 | `environment` | `null`  | Name of the environment.                          |
 | `component`   | `null`  | Name of the component.                            |
@@ -47,7 +47,7 @@ module "this" {
 | `enabled`     | Flag indicating whether the module is enabled.              |
 | `environment` | Normalised name of the environment.                         |
 | `id`          | Disambiguated ID of the module.                             |
-| `namespace`   | Normalised name of the namespace.                           |
+| `identifier`  | Normalised name of the identifier.                          |
 | `tags`        | Normalised map of tags.                                     |
 
 ## License

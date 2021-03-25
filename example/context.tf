@@ -17,7 +17,7 @@ module "this" {
   source = "../"
 
   enabled     = true
-  namespace   = var.namespace
+  identifier  = var.identifier
   account     = var.account
   environment = var.environment
   component   = var.component
@@ -28,7 +28,7 @@ module "this" {
 variable "context" {
   default = {
     enabled     = true
-    namespace   = null
+    identifier  = null
     account     = null
     environment = null
     component   = null
@@ -40,7 +40,7 @@ variable "context" {
 
   type = object({
     enabled     = bool
-    namespace   = string
+    identifier  = string
     account     = string
     environment = string
     component   = string
@@ -55,9 +55,9 @@ variable "enabled" {
   type        = bool
 }
 
-variable "namespace" {
+variable "identifier" {
   default     = null
-  description = "Name of the namespace."
+  description = "Name of the identifier."
   type        = string
 }
 

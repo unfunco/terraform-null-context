@@ -48,9 +48,9 @@ output "id" {
   value       = local.enabled ? local.id : ""
 }
 
-output "namespace" {
-  description = "Normalised name of the namespace."
-  value       = local.enabled ? local.namespace : ""
+output "identifier" {
+  description = "Normalised name of the identifier."
+  value       = local.enabled ? local.identifier : ""
 }
 
 output "tags" {

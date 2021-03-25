@@ -16,7 +16,7 @@
 locals {
   input = {
     enabled     = var.enabled == null ? var.context.enabled : var.enabled
-    namespace   = var.namespace == null ? var.context.namespace : var.namespace
+    identifier  = var.identifier == null ? var.context.identifier : var.identifier
     account     = var.account == null ? var.context.account : var.account
     environment = var.environment == null ? var.context.environment : var.environment
     component   = var.component == null ? var.context.component : var.component
@@ -26,21 +26,21 @@ locals {
 
   enabled = local.input.enabled
 
-  namespace   = local.input.namespace == null ? "" : lower(local.input.namespace)
+  identifier  = local.input.identifier == null ? "" : lower(local.input.identifier)
   account     = local.input.account == null ? "" : lower(local.input.account)
   environment = local.input.environment == null ? "" : lower(local.input.environment)
   component   = local.input.component == null ? "" : lower(local.input.component)
   attributes  = compact(distinct([for v in local.input.attributes : lower(v)]))
 
   local_context = {
-    namespace   = local.namespace
+    identifier  = local.identifier
     account     = local.account
     environment = local.environment
     component   = local.component
     attributes  = join("-", local.attributes)
   }
 
-  label_order = ["namespace", "account", "environment", "component", "attributes"]
+  label_order = ["identifier", "account", "environment", "component", "attributes"]
   labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
 
   id = join("-", distinct(local.labels))
@@ -51,7 +51,7 @@ locals {
 
   output_context = {
     enabled     = local.enabled
-    namespace   = local.namespace
+    identifier  = local.identifier
     account     = local.account
     environment = local.environment
     component   = local.component
