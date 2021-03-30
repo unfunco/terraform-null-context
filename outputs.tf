@@ -48,9 +48,9 @@ output "id" {
   value       = local.enabled ? local.id : ""
 }
 
-output "identifier" {
-  description = "Normalised name of the identifier."
-  value       = local.enabled ? local.identifier : ""
+output "organisation" {
+  description = "Normalised name of the organisation."
+  value       = local.enabled ? local.organisation : ""
 }
 
 output "tags" {

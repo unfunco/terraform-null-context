@@ -36,7 +36,7 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, "example-nonlive-uat-bucket-uploads", bucketID)
 
 	bucketTags := terraform.OutputMap(t, options, "example_bucket_tags")
-	assert.Equal(t, "example", bucketTags["Identifier"])
+	assert.Equal(t, "example", bucketTags["Organisation"])
 	assert.Equal(t, "nonlive", bucketTags["Account"])
 	assert.Equal(t, "uat", bucketTags["Environment"])
 	assert.Equal(t, "bucket", bucketTags["Component"])

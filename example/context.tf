@@ -16,36 +16,36 @@
 module "this" {
   source = "../"
 
-  enabled     = true
-  identifier  = var.identifier
-  account     = var.account
-  environment = var.environment
-  component   = var.component
-  attributes  = var.attributes
-  tags        = var.tags
+  enabled      = true
+  organisation = var.organisation
+  account      = var.account
+  environment  = var.environment
+  component    = var.component
+  attributes   = var.attributes
+  tags         = var.tags
 }
 
 variable "context" {
   default = {
-    enabled     = true
-    identifier  = null
-    account     = null
-    environment = null
-    component   = null
-    attributes  = []
-    tags        = {}
+    enabled      = true
+    organisation = null
+    account      = null
+    environment  = null
+    component    = null
+    attributes   = []
+    tags         = {}
   }
 
   description = "Single object used for setting the entire context at once."
 
   type = object({
-    enabled     = bool
-    identifier  = string
-    account     = string
-    environment = string
-    component   = string
-    attributes  = list(string)
-    tags        = map(string)
+    enabled      = bool
+    organisation = string
+    account      = string
+    environment  = string
+    component    = string
+    attributes   = list(string)
+    tags         = map(string)
   })
 }
 
@@ -55,9 +55,9 @@ variable "enabled" {
   type        = bool
 }
 
-variable "identifier" {
+variable "organisation" {
   default     = null
-  description = "Name of the identifier."
+  description = "Name of the organisation."
   type        = string
 }
 

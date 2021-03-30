@@ -15,32 +15,32 @@
 
 locals {
   input = {
-    enabled     = var.enabled == null ? var.context.enabled : var.enabled
-    identifier  = var.identifier == null ? var.context.identifier : var.identifier
-    account     = var.account == null ? var.context.account : var.account
-    environment = var.environment == null ? var.context.environment : var.environment
-    component   = var.component == null ? var.context.component : var.component
-    attributes  = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
-    tags        = merge(var.context.tags, var.tags)
+    enabled      = var.enabled == null ? var.context.enabled : var.enabled
+    organisation = var.organisation == null ? var.context.organisation : var.organisation
+    account      = var.account == null ? var.context.account : var.account
+    environment  = var.environment == null ? var.context.environment : var.environment
+    component    = var.component == null ? var.context.component : var.component
+    attributes   = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
+    tags         = merge(var.context.tags, var.tags)
   }
 
   enabled = local.input.enabled
 
-  identifier  = local.input.identifier == null ? "" : lower(local.input.identifier)
-  account     = local.input.account == null ? "" : lower(local.input.account)
-  environment = local.input.environment == null ? "" : lower(local.input.environment)
-  component   = local.input.component == null ? "" : lower(local.input.component)
-  attributes  = compact(distinct([for v in local.input.attributes : lower(v)]))
+  organisation = local.input.organisation == null ? "" : lower(local.input.organisation)
+  account      = local.input.account == null ? "" : lower(local.input.account)
+  environment  = local.input.environment == null ? "" : lower(local.input.environment)
+  component    = local.input.component == null ? "" : lower(local.input.component)
+  attributes   = compact(distinct([for v in local.input.attributes : lower(v)]))
 
   local_context = {
-    identifier  = local.identifier
-    account     = local.account
-    environment = local.environment
-    component   = local.component
-    attributes  = join("-", local.attributes)
+    organisation = local.organisation
+    account      = local.account
+    environment  = local.environment
+    component    = local.component
+    attributes   = join("-", local.attributes)
   }
 
-  label_order = ["identifier", "account", "environment", "component", "attributes"]
+  label_order = ["organisation", "account", "environment", "component", "attributes"]
   labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
 
   id = join("-", distinct(local.labels))
@@ -50,12 +50,12 @@ locals {
   }
 
   output_context = {
-    enabled     = local.enabled
-    identifier  = local.identifier
-    account     = local.account
-    environment = local.environment
-    component   = local.component
-    attributes  = local.attributes
-    tags        = local.tags
+    enabled      = local.enabled
+    organisation = local.organisation
+    account      = local.account
+    environment  = local.environment
+    component    = local.component
+    attributes   = local.attributes
+    tags         = local.tags
   }
 }

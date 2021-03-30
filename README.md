@@ -14,41 +14,41 @@ Terraform module used to enforce Honest Empire naming and tagging conventions.
 module "this" {
   source = "git::git@github.com:honestempire/terraform-null-context.git?ref=main"
 
-  enabled     = var.enabled
-  identifier  = var.identifier
-  account     = var.account
-  environment = var.environment
-  component   = var.component
-  attributes  = var.attributes
-  tags        = var.tags
+  enabled      = var.enabled
+  organisation = var.organisation
+  account      = var.account
+  environment  = var.environment
+  component    = var.component
+  attributes   = var.attributes
+  tags         = var.tags
 }
 ```
 
 #### Inputs
 
-| Name          | Default | Description                                       |
-| ------------- | :-----: | ------------------------------------------------- |
-| `enabled`     | `true`  | Flag to enable/disable the creation of resources. |
-| `identifier`  | `null`  | Name of the identifier.                           |
-| `account`     | `null`  | Name of the account.                              |
-| `environment` | `null`  | Name of the environment.                          |
-| `component`   | `null`  | Name of the component.                            |
-| `attributes`  | `[]`    | List of attributes.                               |
-| `tags`        | `{}`    | Map of tags.                                      |
+| Name           | Default | Description                                       |
+| -------------- | :-----: | ------------------------------------------------- |
+| `enabled`      | `true`  | Flag to enable/disable the creation of resources. |
+| `organisation` | `null`  | Name of the organisation.                         |
+| `account`      | `null`  | Name of the account.                              |
+| `environment`  | `null`  | Name of the environment.                          |
+| `component`    | `null`  | Name of the component.                            |
+| `attributes`   | `[]`    | List of attributes.                               |
+| `tags`         | `{}`    | Map of tags.                                      |
 
 #### Outputs
 
-| Name          | Description                                                 |
-| ------------- | ----------------------------------------------------------- |
-| `account`     | Normalised name of the account.                             |
-| `attributes`  | List of normalised additional attributes.                   |
-| `component`   | Normalised name of the component.                           |
-| `context`     | Merged but otherwise unmodified input given to this module. |
-| `enabled`     | Flag indicating whether the module is enabled.              |
-| `environment` | Normalised name of the environment.                         |
-| `id`          | Disambiguated ID of the module.                             |
-| `identifier`  | Normalised name of the identifier.                          |
-| `tags`        | Normalised map of tags.                                     |
+| Name           | Description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| `account`      | Normalised name of the account.                             |
+| `attributes`   | List of normalised additional attributes.                   |
+| `component`    | Normalised name of the component.                           |
+| `context`      | Merged but otherwise unmodified input given to this module. |
+| `enabled`      | Flag indicating whether the module is enabled.              |
+| `environment`  | Normalised name of the environment.                         |
+| `id`           | Disambiguated ID of the module.                             |
+| `organisation` | Normalised name of the organisation.                        |
+| `tags`         | Normalised map of tags.                                     |
 
 ## License
 
