@@ -14,6 +14,8 @@
 // limitations under the License.
 
 resource "aws_s3_bucket" "example_bucket" {
+  count = module.context.enabled ? 1 : 0
+
   bucket = module.this.id
   tags   = module.this.tags
 }

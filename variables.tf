@@ -13,68 +13,82 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+variable "account" {
+  default     = ""
+  description = "The name of the account."
+  type        = string
+}
+
+variable "application" {
+  default     = ""
+  description = "The name of the application."
+  type        = string
+}
+
+variable "attributes" {
+  default     = []
+  description = "A list of additional attributes."
+  type        = list(string)
+}
+
 variable "context" {
   default = {
-    enabled      = true
-    organisation = null
-    account      = null
-    environment  = null
-    component    = null
+    account      = ""
+    application  = ""
     attributes   = []
+    enabled      = true
+    organisation = ""
+    stack        = ""
+    stage        = ""
     tags         = {}
   }
 
   description = "Single object used for setting the entire context at once."
 
   type = object({
+    account      = string
+    application  = string
+    attributes   = list(string)
     enabled      = bool
     organisation = string
-    account      = string
-    environment  = string
-    component    = string
-    attributes   = list(string)
-    tags         = map(string)
+    stack        = string
+    stage        = string
+    tags         = object({})
   })
 }
 
 variable "enabled" {
-  default     = null
+  default     = true
   description = "Flag to enable/disable the creation of resources."
   type        = bool
 }
 
-variable "organisation" {
-  default     = null
-  description = "Name of the organisation."
-  type        = string
-}
-
-variable "account" {
-  default     = null
-  description = "Name of the account."
-  type        = string
-}
-
-variable "environment" {
-  default     = null
-  description = "Name of the environment."
-  type        = string
-}
-
-variable "component" {
-  default     = null
-  description = "Name of the component."
-  type        = string
-}
-
-variable "attributes" {
-  default     = []
-  description = "List of additional attributes."
+variable "label_order" {
+  default     = ["application", "account", "stage", "stack"]
+  description = ""
   type        = list(string)
+}
+
+variable "organisation" {
+  default     = ""
+  description = "The name of the organisation."
+  type        = string
+}
+
+variable "stack" {
+  default     = ""
+  description = "The name of the stack."
+  type        = string
+}
+
+variable "stage" {
+  default     = ""
+  description = "The name of the stage."
+  type        = string
 }
 
 variable "tags" {
   default     = {}
   description = "Map of tags to be applied to resources."
-  type        = map(string)
+  type        = object({})
 }

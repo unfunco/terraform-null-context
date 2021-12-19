@@ -22,6 +22,7 @@ module "context" {
 
   enabled      = var.enabled
   organisation = var.organisation
+  application  = var.application
   account      = var.account
   stage        = var.stage
   stack        = "example"
@@ -43,6 +44,7 @@ resource "aws_s3_bucket" "example" {
 |----------------|:-------:|---------------------------------------------------|
 | `enabled`      | `true`  | Flag to enable/disable the creation of resources. |
 | `organisation` |  `""`   | The name of the organisation.                     |
+| `application`  |  `""`   | The name of the application.                      |
 | `account`      |  `""`   | The name of the account.                          |
 | `stage`        |  `""`   | The name of the stage.                            |
 | `stack`        |  `""`   | The name of the stack.                            |
@@ -56,6 +58,7 @@ resource "aws_s3_bucket" "example" {
 | `enabled`      | Flag indicating whether the module is enabled.              |
 | `organisation` | The normalised name of the organisation.                    |
 | `account`      | The normalised name of the account.                         |
+| `application`  | The normalised name of the application.                     |
 | `stage`        | The normalised name of the stage.                           |
 | `stack`        | The normalised name of the stack.                           |
 | `attributes`   | A list of normalised additional attributes.                 |

@@ -14,18 +14,13 @@
 // limitations under the License.
 
 output "account" {
-  description = "Normalised name of the account."
+  description = "The normalised name of the account."
   value       = local.enabled ? local.account : ""
 }
 
 output "attributes" {
-  description = "List of normalised additional attributes."
+  description = "A list of normalised additional attributes."
   value       = local.enabled ? local.attributes : []
-}
-
-output "component" {
-  description = "Normalised name of the component."
-  value       = local.enabled ? local.component : ""
 }
 
 output "context" {
@@ -36,6 +31,11 @@ output "context" {
 output "enabled" {
   description = "Flag indicating whether the module is enabled."
   value       = local.enabled
+}
+
+output "stack" {
+  description = "Normalised name of the stack."
+  value       = local.enabled ? local.stack : ""
 }
 
 output "environment" {

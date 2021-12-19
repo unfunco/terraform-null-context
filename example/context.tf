@@ -13,80 +13,89 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module "this" {
+module "context" {
   source = "../"
 
   enabled      = true
   organisation = var.organisation
+  application  = var.application
   account      = var.account
-  environment  = var.environment
-  component    = var.component
+  stage        = var.stage
+  stack        = var.stack
   attributes   = var.attributes
   tags         = var.tags
 }
 
 variable "context" {
   default = {
-    enabled      = true
-    organisation = null
-    account      = null
-    environment  = null
-    component    = null
+    account      = ""
+    application  = ""
     attributes   = []
+    enabled      = true
+    organisation = ""
+    stack        = ""
+    stage        = ""
     tags         = {}
   }
 
   description = "Single object used for setting the entire context at once."
 
   type = object({
+    account      = string
+    application  = string
+    attributes   = list(string)
     enabled      = bool
     organisation = string
-    account      = string
-    environment  = string
-    component    = string
-    attributes   = list(string)
-    tags         = map(string)
+    stack        = string
+    stage        = string
+    tags         = object({})
   })
 }
 
 variable "enabled" {
-  default     = null
+  default     = true
   description = "Flag to enable/disable the creation of resources."
   type        = bool
 }
 
 variable "organisation" {
-  default     = null
-  description = "Name of the organisation."
+  default     = ""
+  description = "The name of the organisation."
   type        = string
 }
 
 variable "account" {
-  default     = null
-  description = "Name of the account."
+  default     = ""
+  description = "The name of the account."
   type        = string
 }
 
-variable "environment" {
-  default     = null
-  description = "Name of the environment."
+variable "application" {
+  default     = ""
+  description = "The name of the application."
   type        = string
 }
 
-variable "component" {
-  default     = null
-  description = "Name of the component."
+variable "stage" {
+  default     = ""
+  description = "The name of the stage."
+  type        = string
+}
+
+variable "stack" {
+  default     = ""
+  description = "The name of the stack."
   type        = string
 }
 
 variable "attributes" {
   default     = []
-  description = "List of additional attributes."
+  description = "A list of additional attributes."
   type        = list(string)
 }
 
 variable "tags" {
   default     = {}
-  description = "Map of tags to be applied to resources."
-  type        = map(string)
+  description = "A map of tags to be applied to resources."
+  type        = object({})
 }
