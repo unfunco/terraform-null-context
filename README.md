@@ -1,54 +1,67 @@
-# Terraform context
+# Terraform context module
 
-Terraform module used to enforce Honest Empire naming and tagging conventions.
+Terraform module for enforcing consistent naming and tagging conventions. This
+module is not tied to any specific Cloud provider but the output it produces and
+the conventions it applies are currently targeted towards AWS resources.
 
 ## Getting started
 
 ### Requirements
 
-* [Terraform] 0.14+
+* [Terraform] 1.0+
 
 ### Installation and usage
 
-```bash
-module "this" {
+```terraform
+provider "aws" {
+  region = var.aws_region
+}
+
+module "context" {
   source = "git::git@github.com:honestempire/terraform-null-context.git?ref=main"
 
   enabled      = var.enabled
   organisation = var.organisation
   account      = var.account
-  environment  = var.environment
-  component    = var.component
+  stage        = var.stage
+  stack        = "example"
   attributes   = var.attributes
   tags         = var.tags
+}
+
+resource "aws_s3_bucket" "example" {
+  count = module.context.enabled ? 1 : 0
+
+  bucket = module.context.id
+  tags   = module.context.tags
 }
 ```
 
 #### Inputs
 
 | Name           | Default | Description                                       |
-| -------------- | :-----: | ------------------------------------------------- |
+|----------------|:-------:|---------------------------------------------------|
 | `enabled`      | `true`  | Flag to enable/disable the creation of resources. |
-| `organisation` | `null`  | Name of the organisation.                         |
-| `account`      | `null`  | Name of the account.                              |
-| `environment`  | `null`  | Name of the environment.                          |
-| `component`    | `null`  | Name of the component.                            |
-| `attributes`   | `[]`    | List of attributes.                               |
-| `tags`         | `{}`    | Map of tags.                                      |
+| `organisation` |  `""`   | The name of the organisation.                     |
+| `account`      |  `""`   | The name of the account.                          |
+| `stage`        |  `""`   | The name of the stage.                            |
+| `stack`        |  `""`   | The name of the stack.                            |
+| `attributes`   |  `[]`   | A list of additional attributes.                  |
+| `tags`         |  `{}`   | A map of tags to apply to all resources.          |
 
 #### Outputs
 
 | Name           | Description                                                 |
-| -------------- | ----------------------------------------------------------- |
-| `account`      | Normalised name of the account.                             |
-| `attributes`   | List of normalised additional attributes.                   |
-| `component`    | Normalised name of the component.                           |
-| `context`      | Merged but otherwise unmodified input given to this module. |
+|----------------|-------------------------------------------------------------|
 | `enabled`      | Flag indicating whether the module is enabled.              |
-| `environment`  | Normalised name of the environment.                         |
-| `id`           | Disambiguated ID of the module.                             |
-| `organisation` | Normalised name of the organisation.                        |
-| `tags`         | Normalised map of tags.                                     |
+| `organisation` | The normalised name of the organisation.                    |
+| `account`      | The normalised name of the account.                         |
+| `stage`        | The normalised name of the stage.                           |
+| `stack`        | The normalised name of the stack.                           |
+| `attributes`   | A list of normalised additional attributes.                 |
+| `tags`         | The normalised map of tags.                                 |
+| `context`      | Merged but otherwise unmodified input given to this module. |
+| `id`           | The disambiguated ID of the module.                         |
 
 ## License
 
