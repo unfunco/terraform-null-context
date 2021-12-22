@@ -47,7 +47,7 @@ locals {
   labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
 
   id   = join("-", distinct(local.labels))
-  path = join("/", distinct(local.labels))
+  path = "/${join("/", distinct(local.labels))}"
 
   tags = {
     for t in keys(local.local_context) : title(t) => local.local_context[t] if length(local.local_context[t]) > 0
