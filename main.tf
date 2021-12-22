@@ -43,11 +43,11 @@ locals {
     attributes   = join("-", local.attributes)
   }
 
-  label_order = var.label_order
-  labels      = [for l in local.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
+  labels      = [for l in var.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
+  path_labels = [for p in var.path_order : local.local_context[p] if length(local.local_context[p]) > 0]
 
   id   = join("-", distinct(local.labels))
-  path = "/${join("/", distinct(local.labels))}"
+  path = "/${join("/", distinct(local.path_labels))}"
 
   tags = {
     for t in keys(local.local_context) : title(t) => local.local_context[t] if length(local.local_context[t]) > 0

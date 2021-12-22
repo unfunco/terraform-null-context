@@ -75,6 +75,12 @@ variable "organisation" {
   type        = string
 }
 
+variable "path_order" {
+  default     = ["application", "account", "stage"]
+  description = "List of path components in the order they should be applied."
+  type        = list(string)
+}
+
 variable "stack" {
   default     = ""
   description = "The name of the stack."
