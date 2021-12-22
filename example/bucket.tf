@@ -13,6 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+provider "aws" {
+  region = "eu-west-1"
+}
+
 resource "aws_s3_bucket" "example_bucket" {
   count = module.context.enabled ? 1 : 0
 
