@@ -27,11 +27,11 @@ locals {
 
   enabled = local.input.enabled
 
-  organisation = local.input.organisation == null ? "" : lower(local.input.organisation)
-  application  = local.input.application == null ? "" : lower(local.input.application)
-  account      = local.input.account == null ? "" : lower(local.input.account)
-  stage        = local.input.stage == null ? "" : lower(local.input.stage)
-  stack        = local.input.stack == null ? "" : lower(local.input.stack)
+  organisation = local.input.organisation == null ? "" : lower(replace(local.input.organisation, "/\\W/", ""))
+  application  = local.input.application == null ? "" : lower(replace(local.input.application, "/\\W/", ""))
+  account      = local.input.account == null ? "" : lower(replace(local.input.account, "/\\W/", ""))
+  stage        = local.input.stage == null ? "" : lower(replace(local.input.stage, "/\\W/", ""))
+  stack        = local.input.stack == null ? "" : lower(replace(local.input.stack, "/\\W/", ""))
   attributes   = compact(distinct([for v in local.input.attributes : lower(v)]))
 
   local_context = {
