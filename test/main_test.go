@@ -16,6 +16,7 @@
 package main
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -33,7 +34,7 @@ func TestExample(t *testing.T) {
 	terraform.InitAndApply(t, options)
 
 	bucketID := terraform.Output(t, options, "example_bucket_id")
-	assert.Equal(t, "example-nonlive-uat-bucket-uploads", bucketID)
+	assert.True(t, strings.HasPrefix(bucketID, "example-nonlive-uat-bucket-uploads"))
 
 	bucketTags := terraform.OutputMap(t, options, "example_bucket_tags")
 	assert.Equal(t, "honestempire", bucketTags["Organisation"])

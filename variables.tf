@@ -64,8 +64,8 @@ variable "enabled" {
 }
 
 variable "label_order" {
-  default     = ["application", "account", "stage", "stack"]
-  description = ""
+  default     = ["application", "account", "stage", "stack", "attributes"]
+  description = "List of labels in the order they should be applied."
   type        = list(string)
 }
 

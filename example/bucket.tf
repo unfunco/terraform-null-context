@@ -20,8 +20,8 @@ provider "aws" {
 resource "aws_s3_bucket" "example_bucket" {
   count = module.context.enabled ? 1 : 0
 
-  bucket = module.context.id
-  tags   = module.context.tags
+  bucket_prefix = module.context.id
+  tags          = module.context.tags
 }
 
 resource "aws_ssm_parameter" "example_ssm_parameter" {
