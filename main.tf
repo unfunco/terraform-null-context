@@ -16,11 +16,11 @@
 locals {
   input = {
     enabled      = var.enabled == null ? var.context.enabled : var.enabled
-    organisation = var.organisation == null ? var.context.organisation : var.organisation
+    organisation = var.organisation == "" ? var.context.organisation : var.organisation
     application  = var.application == "" ? var.context.application : var.application
-    account      = var.account == null ? var.context.account : var.account
-    stage        = var.stage == null ? var.context.stage : var.stage
-    stack        = var.stack == null ? var.context.stack : var.stack
+    account      = var.account == "" ? var.context.account : var.account
+    stage        = var.stage == "" ? var.context.stage : var.stage
+    stack        = var.stack == "" ? var.context.stack : var.stack
     attributes   = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
     tags         = merge(var.context.tags, var.tags)
   }
