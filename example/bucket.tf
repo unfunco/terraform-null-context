@@ -38,7 +38,7 @@ output "example_bucket_id" {
 }
 
 output "example_bucket_tags" {
-  value = module.context.enabled ? aws_s3_bucket.example_bucket[0].tags : ""
+  value = module.context.enabled ? aws_s3_bucket.example_bucket[0].tags : {}
 }
 
 output "example_ssm_parameter_id" {
@@ -46,5 +46,5 @@ output "example_ssm_parameter_id" {
 }
 
 output "example_ssm_parameter_tags" {
-  value = module.context.enabled ? aws_ssm_parameter.example_ssm_parameter[0].tags : ""
+  value = module.context.enabled ? aws_ssm_parameter.example_ssm_parameter[0].tags : {}
 }
