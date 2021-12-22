@@ -23,24 +23,24 @@ resource "aws_s3_bucket" "example_bucket" {
 resource "aws_ssm_parameter" "example_ssm_parameter" {
   count = module.context.enabled ? 1 : 0
 
-  name  = join("/", module.context.path, upper("example"))
+  name  = join("/", [module.context.path, "EXAMPLE"])
   tags  = module.context.tags
   type  = "SecureString"
   value = "CorrectHorseBatteryStaple"
 }
 
 output "example_bucket_id" {
-  value = aws_s3_bucket.example_bucket.id
+  value = module.context.enabled ? aws_s3_bucket.example_bucket[0].id : ""
 }
 
 output "example_bucket_tags" {
-  value = aws_s3_bucket.example_bucket.tags
+  value = module.context.enabled ? aws_s3_bucket.example_bucket[0].tags : ""
 }
 
 output "example_ssm_parameter_id" {
-  value = aws_ssm_parameter.example_ssm_parameter.id
+  value = module.context.enabled ? aws_ssm_parameter.example_ssm_parameter[0].id : ""
 }
 
 output "example_ssm_parameter_tags" {
-  value = aws_ssm_parameter.example_ssm_parameter.tags
+  value = module.context.enabled ? aws_ssm_parameter.example_ssm_parameter[0].tags : ""
 }
