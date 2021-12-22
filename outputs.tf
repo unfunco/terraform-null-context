@@ -18,6 +18,11 @@ output "account" {
   value       = local.enabled ? local.account : ""
 }
 
+output "application" {
+  description = "The normalised name of the application."
+  value       = local.enabled ? local.application : ""
+}
+
 output "attributes" {
   description = "A list of normalised additional attributes."
   value       = local.enabled ? local.attributes : []
@@ -33,27 +38,27 @@ output "enabled" {
   value       = local.enabled
 }
 
+output "path" {
+  description = "The disambiguated ID of the module delimited with slashes."
+  value       = ""
+}
+
 output "stack" {
-  description = "Normalised name of the stack."
+  description = "The normalised name of the stack."
   value       = local.enabled ? local.stack : ""
 }
 
-output "environment" {
-  description = "Normalised name of the environment."
-  value       = local.enabled ? local.environment : ""
-}
-
 output "id" {
-  description = "Disambiguated ID of the module."
+  description = "The disambiguated ID of the module."
   value       = local.enabled ? local.id : ""
 }
 
 output "organisation" {
-  description = "Normalised name of the organisation."
+  description = "The normalised name of the organisation."
   value       = local.enabled ? local.organisation : ""
 }
 
 output "tags" {
-  description = "Normalised map of tags."
+  description = "A normalised map of tags."
   value       = local.enabled ? local.tags : {}
 }

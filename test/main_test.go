@@ -36,9 +36,19 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, "example-nonlive-uat-bucket-uploads", bucketID)
 
 	bucketTags := terraform.OutputMap(t, options, "example_bucket_tags")
-	assert.Equal(t, "example", bucketTags["Organisation"])
+	assert.Equal(t, "honestempire", bucketTags["Organisation"])
+	assert.Equal(t, "example", bucketTags["Application"])
 	assert.Equal(t, "nonlive", bucketTags["Account"])
-	assert.Equal(t, "uat", bucketTags["Environment"])
-	assert.Equal(t, "bucket", bucketTags["Component"])
+	assert.Equal(t, "uat", bucketTags["Stage"])
+	assert.Equal(t, "bucket", bucketTags["Stack"])
 	assert.Equal(t, "uploads", bucketTags["Attributes"])
+
+	ssmParameterID := terraform.Output(t, options, "example_ssm_parameter_id")
+	assert.Equal(t, t, "/example/nonlive/uat/EXAMPLE", ssmParameterID)
+
+	ssmParameterTags := terraform.OutputMap(t, options, "example_ssm_parameter_tags")
+	assert.Equal(t, "honestempire", ssmParameterTags["Organisation"])
+	assert.Equal(t, "example", ssmParameterTags["Application"])
+	assert.Equal(t, "nonlive", ssmParameterTags["Account"])
+	assert.Equal(t, "uat", ssmParameterTags["Stage"])
 }

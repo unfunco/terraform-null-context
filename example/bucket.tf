@@ -16,8 +16,17 @@
 resource "aws_s3_bucket" "example_bucket" {
   count = module.context.enabled ? 1 : 0
 
-  bucket = module.this.id
-  tags   = module.this.tags
+  bucket = module.context.id
+  tags   = module.context.tags
+}
+
+resource "aws_ssm_parameter" "example_ssm_parameter" {
+  count = module.context.enabled ? 1 : 0
+
+  name  = join("/", module.context.path, upper("example"))
+  tags  = module.context.tags
+  type  = "SecureString"
+  value = "CorrectHorseBatteryStaple"
 }
 
 output "example_bucket_id" {
@@ -26,4 +35,12 @@ output "example_bucket_id" {
 
 output "example_bucket_tags" {
   value = aws_s3_bucket.example_bucket.tags
+}
+
+output "example_ssm_parameter_id" {
+  value = aws_ssm_parameter.example_ssm_parameter.id
+}
+
+output "example_ssm_parameter_tags" {
+  value = aws_ssm_parameter.example_ssm_parameter.tags
 }

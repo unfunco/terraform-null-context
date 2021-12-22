@@ -1,6 +1,7 @@
 enabled      = true
-organisation = "example"
-account      = "nonlive"
-environment  = "uat"
-component    = "bucket"
+organisation = "Honest Empire"
+application  = "Example"
+account      = "NonLive"
+stage        = "UAT"
+stack        = "bucket"
 attributes   = ["uploads"]

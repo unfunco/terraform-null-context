@@ -18,10 +18,6 @@ recommended to split resources into separate live and non-live AWS accounts.
 The following documentation demonstrates the recommended way to use this module.
 
 ```terraform
-provider "aws" {
-  region = var.aws_region
-}
-
 module "context" {
   source = "git::git@github.com:honestempire/terraform-null-context.git?ref=main"
 
