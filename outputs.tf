@@ -40,7 +40,7 @@ output "enabled" {
 
 output "path" {
   description = "The disambiguated ID of the module delimited with slashes."
-  value       = ""
+  value       = local.enabled ? local.path : ""
 }
 
 output "stack" {
