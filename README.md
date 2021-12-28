@@ -26,7 +26,7 @@ module "context" {
   application  = var.application
   account      = var.account
   stage        = var.stage
-  stack        = "example"
+  stack        = var.stack
   attributes   = var.attributes
   tags         = var.tags
 }
