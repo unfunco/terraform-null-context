@@ -38,6 +38,16 @@ output "enabled" {
   value       = local.enabled
 }
 
+output "id" {
+  description = "The disambiguated ID of the module."
+  value       = local.enabled ? local.id : ""
+}
+
+output "organisation" {
+  description = "The normalised name of the organisation."
+  value       = local.enabled ? local.organisation : ""
+}
+
 output "path" {
   description = "The disambiguated ID of the module delimited with slashes."
   value       = local.enabled ? local.path : ""
@@ -48,14 +58,9 @@ output "stack" {
   value       = local.enabled ? local.stack : ""
 }
 
-output "id" {
-  description = "The disambiguated ID of the module."
-  value       = local.enabled ? local.id : ""
-}
-
-output "organisation" {
-  description = "The normalised name of the organisation."
-  value       = local.enabled ? local.organisation : ""
+output "stage" {
+  description = "The normalised name of the stage."
+  value       = local.enabled ? local.stage : ""
 }
 
 output "tags" {

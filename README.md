@@ -32,13 +32,36 @@ module "context" {
 }
 ```
 
+```json
+{
+  "enabled": true,
+  "organisation": "Honest Empire",
+  "application": "TikiTaka",
+  "account": "Live",
+  "stage": "Live",
+  "stack": "website"
+}
+```
+
 ```terraform
-resource "aws_s3_bucket" "example" {
+resource "aws_s3_bucket" "website" {
   count = module.context.enabled ? 1 : 0
 
   bucket = module.context.id
   tags   = module.context.tags
 }
+```
+
+```terraform
+website_bucket_id = "tikitaka-live-website"
+
+website_bucket_tags = tomap({
+  "Account" = "live"
+  "Application" = "example"
+  "Organisation" = "honestempire"
+  "Stack" = "website"
+  "Stage" = "live"
+})
 ```
 
 #### Inputs
