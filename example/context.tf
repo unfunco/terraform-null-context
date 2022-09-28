@@ -1,4 +1,4 @@
-// Copyright © 2021 Honest Empire Ltd.
+// Copyright © 2021 Daniel Morris.
 // All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,6 @@
 module "context" {
   source = "../"
 
-  enabled      = true
   organisation = var.organisation
   application  = var.application
   account      = var.account
@@ -31,7 +30,6 @@ variable "context" {
     account      = ""
     application  = ""
     attributes   = []
-    enabled      = true
     organisation = ""
     stack        = ""
     stage        = ""
@@ -44,18 +42,11 @@ variable "context" {
     account      = string
     application  = string
     attributes   = list(string)
-    enabled      = bool
     organisation = string
     stack        = string
     stage        = string
     tags         = object({})
   })
-}
-
-variable "enabled" {
-  default     = true
-  description = "Flag to enable/disable the creation of resources."
-  type        = bool
 }
 
 variable "organisation" {

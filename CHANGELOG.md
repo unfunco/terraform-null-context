@@ -11,6 +11,6 @@ This project adheres to the [semantic versioning] specification.
 
 * Initial release.
 
-[0.1.0]: https://github.com/honestempire/terraform-null-context/releases/tag/v0.1.0
-[0.1.1]: https://github.com/honestempire/terraform-null-context/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/unfunco/terraform-null-context/releases/tag/v0.1.0
+[0.1.1]: https://github.com/unfunco/terraform-null-context/compare/v0.1.0...v0.1.1
 [Semantic versioning]: https://semver.org

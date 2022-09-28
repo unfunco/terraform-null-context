@@ -1,4 +1,4 @@
-// Copyright © 2021 Honest Empire Ltd.
+// Copyright © 2021 Daniel Morris.
 // All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,5 +14,5 @@
 // limitations under the License.
 
 terraform {
-  required_version = "~> 1.0"
+  required_version = "~> 1.3"
 }

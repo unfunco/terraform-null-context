@@ -1,4 +1,4 @@
-// Copyright © 2021 Honest Empire Ltd.
+// Copyright © 2021 Daniel Morris.
 // All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,17 @@
 
 output "account" {
   description = "The normalised name of the account."
-  value       = local.enabled ? local.account : ""
+  value       = local.account
 }
 
 output "application" {
   description = "The normalised name of the application."
-  value       = local.enabled ? local.application : ""
+  value       = local.application
 }
 
 output "attributes" {
   description = "A list of normalised additional attributes."
-  value       = local.enabled ? local.attributes : []
+  value       = local.attributes
 }
 
 output "context" {
@@ -33,37 +33,32 @@ output "context" {
   value       = local.input
 }
 
-output "enabled" {
-  description = "Flag indicating whether the module is enabled."
-  value       = local.enabled
-}
-
 output "id" {
   description = "The disambiguated ID of the module."
-  value       = local.enabled ? local.id : ""
+  value       = local.id
 }
 
 output "organisation" {
   description = "The normalised name of the organisation."
-  value       = local.enabled ? local.organisation : ""
+  value       = local.organisation
 }
 
 output "path" {
   description = "The disambiguated ID of the module delimited with slashes."
-  value       = local.enabled ? local.path : ""
+  value       = local.path
 }
 
 output "stack" {
   description = "The normalised name of the stack."
-  value       = local.enabled ? local.stack : ""
+  value       = local.stack
 }
 
 output "stage" {
   description = "The normalised name of the stage."
-  value       = local.enabled ? local.stage : ""
+  value       = local.stage
 }
 
 output "tags" {
   description = "A normalised map of tags."
-  value       = local.enabled ? local.tags : {}
+  value       = local.tags
 }

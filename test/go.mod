@@ -1,6 +1,6 @@
-module github.com/honestempire/terraform-null-context
+module github.com/unfunco/terraform-null-context
 
-go 1.17
+go 1.19
 
 require (
 	github.com/gruntwork-io/terratest v0.38.2

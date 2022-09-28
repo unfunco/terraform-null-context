@@ -1,17 +1,16 @@
 # Terraform context module
 
-Terraform module for enforcing consistent naming and tagging conventions. This
-module is not tied to any specific Cloud provider but the output it produces and
-the conventions it applies are currently targeted towards AWS resources. When
-using the context module, resources are disambiguated so that multiple instances
-of the same resource can exist within a AWS single account, however, it is
-recommended to split resources into separate live and non-live AWS accounts.
+Terraform module for enforcing consistent naming and tagging conventions.
+This module is not tied to any specific Cloud provider but the output it
+produces and the conventions it applies are currently targeted towards AWS
+resources. When using the context module, resources are disambiguated so that
+multiple instances of the same resource can exist within a AWS single account.
 
 ## Getting started
 
 ### Requirements
 
-* [Terraform] 1.0+
+* [Terraform] 1.3+
 
 ### Installation and usage
 
@@ -19,9 +18,8 @@ The following documentation demonstrates the recommended way to use this module.
 
 ```terraform
 module "context" {
-  source = "git::git@github.com:honestempire/terraform-null-context.git?ref=main"
+  source = "git::git@github.com:unfunco/terraform-null-context.git?ref=main"
 
-  enabled      = var.enabled
   organisation = var.organisation
   application  = var.application
   account      = var.account
@@ -34,9 +32,8 @@ module "context" {
 
 ```json
 {
-  "enabled": true,
   "organisation": "Honest Empire",
-  "application": "TikiTaka",
+  "application": "Serious Balls",
   "account": "Live",
   "stage": "Live",
   "stack": "website"
@@ -45,15 +42,13 @@ module "context" {
 
 ```terraform
 resource "aws_s3_bucket" "website" {
-  count = module.context.enabled ? 1 : 0
-
   bucket = module.context.id
   tags   = module.context.tags
 }
 ```
 
 ```terraform
-website_bucket_id = "tikitaka-live-website"
+website_bucket_id = "seriousballs-live-website"
 
 website_bucket_tags = tomap({
   "Account" = "live"
@@ -68,7 +63,6 @@ website_bucket_tags = tomap({
 
 | Name           | Default | Description                                       |
 |----------------|:-------:|---------------------------------------------------|
-| `enabled`      | `true`  | Flag to enable/disable the creation of resources. |
 | `organisation` |  `""`   | The name of the organisation.                     |
 | `application`  |  `""`   | The name of the application.                      |
 | `account`      |  `""`   | The name of the account.                          |
@@ -95,7 +89,6 @@ the input variables.
 
 | Name           | Description                                                     |
 |----------------|-----------------------------------------------------------------|
-| `enabled`      | Flag indicating whether the module is enabled.                  |
 | `organisation` | The normalised name of the organisation.                        |
 | `application`  | The normalised name of the application.                         |
 | `account`      | The normalised name of the account.                             |
@@ -107,8 +100,9 @@ the input variables.
 
 ## License
 
-© 2021 [Honest Empire Ltd]  
+© 2021 [Daniel Morris]  
 Made available under the terms of the [Apache License 2.0](LICENSE.md).
 
+[Daniel Morris]: https://unfun.co
 [Honest Empire Ltd]: https://www.honestempire.com
 [Terraform]: https://www.terraform.io

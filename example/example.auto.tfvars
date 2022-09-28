@@ -1,4 +1,3 @@
-enabled      = true
 organisation = "Honest Empire"
 application  = "Example"
 account      = "NonLive"

@@ -1,4 +1,4 @@
-// Copyright © 2021 Honest Empire Ltd.
+// Copyright © 2021 Daniel Morris.
 // All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,6 @@
 
 locals {
   input = {
-    enabled      = var.enabled == null ? var.context.enabled : var.enabled
     organisation = var.organisation == "" ? var.context.organisation : var.organisation
     application  = var.application == "" ? var.context.application : var.application
     account      = var.account == "" ? var.context.account : var.account
@@ -24,8 +23,6 @@ locals {
     attributes   = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
     tags         = merge(var.context.tags, var.tags)
   }
-
-  enabled = local.input.enabled
 
   organisation = local.input.organisation == null ? "" : lower(replace(local.input.organisation, "/\\W/", ""))
   application  = local.input.application == null ? "" : lower(replace(local.input.application, "/\\W/", ""))
@@ -54,7 +51,6 @@ locals {
   }
 
   output_context = {
-    enabled      = local.enabled
     organisation = local.organisation
     application  = local.application
     account      = local.account
