@@ -23,11 +23,6 @@ output "application" {
   value       = local.application
 }
 
-output "attributes" {
-  description = "A list of normalised additional attributes."
-  value       = local.attributes
-}
-
 output "context" {
   description = "Merged but otherwise unmodified input given to this module."
   value       = local.input

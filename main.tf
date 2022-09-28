@@ -20,7 +20,6 @@ locals {
     account      = var.account == "" ? var.context.account : var.account
     environment  = var.environment == "" ? var.context.environment : var.environment
     stack        = var.stack == "" ? var.context.stack : var.stack
-    attributes   = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
     tags         = merge(var.context.tags, var.tags)
   }
 
@@ -29,7 +28,6 @@ locals {
   account      = local.input.account == null ? "" : lower(replace(local.input.account, "/\\W/", ""))
   environment  = local.input.environment == null ? "" : lower(replace(local.input.environment, "/\\W/", ""))
   stack        = local.input.stack == null ? "" : lower(replace(local.input.stack, "/\\W/", ""))
-  attributes   = compact(distinct([for v in local.input.attributes : lower(v)]))
 
   local_context = {
     organisation = local.organisation
@@ -37,7 +35,6 @@ locals {
     account      = local.account
     environment  = local.environment
     stack        = local.stack
-    attributes   = join("-", local.attributes)
   }
 
   labels      = [for l in var.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
@@ -56,7 +53,6 @@ locals {
     account      = local.account
     environment  = local.environment
     stack        = local.stack
-    attributes   = local.attributes
     tags         = local.tags
   }
 }

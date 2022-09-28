@@ -24,7 +24,6 @@ module "context" {
   account      = var.account
   environment  = var.environment
   stack        = var.stack
-  attributes   = var.attributes
   tags         = var.tags
 }
 ```
@@ -33,9 +32,9 @@ module "context" {
 {
   "organisation": "Honest Empire",
   "application": "Serious Balls",
-  "account": "Live",
-  "environment": "Live",
-  "stack": "website"
+  "account": "live",
+  "environment": "live",
+  "stack": "website-v1"
 }
 ```
 
@@ -43,6 +42,13 @@ module "context" {
 resource "aws_s3_bucket" "website" {
   bucket = module.context.id
   tags   = module.context.tags
+}
+
+resource "aws_ssm_parameter" "x" {
+  name  = join("/", [module.context.path, "SERVICE-API-TOKEN"])
+  tags  = module.context.tags
+  type  = "SecureString"
+  value = "CorrectHorseBatteryStaple"
 }
 ```
 
@@ -67,7 +73,6 @@ website_bucket_tags = tomap({
 | `account`      |  `""`   | The name of the account.                 |
 | `environment`  |  `""`   | The name of the environment.             |
 | `stack`        |  `""`   | The name of the stack.                   |
-| `attributes`   |  `[]`   | A list of additional attributes.         |
 | `tags`         |  `{}`   | A map of tags to apply to all resources. |
 
 #### Outputs
@@ -93,7 +98,6 @@ the input variables.
 | `account`      | The normalised name of the account.                             |
 | `environment`  | The normalised name of the environment.                         |
 | `stack`        | The normalised name of the stack.                               |
-| `attributes`   | A list of normalised additional attributes.                     |
 | `tags`         | The normalised map of tags.                                     |
 | `context`      | The merged but otherwise unmodified input given to this module. |
 

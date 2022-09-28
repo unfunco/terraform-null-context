@@ -42,7 +42,6 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, "nonlive", bucketTags["Account"])
 	assert.Equal(t, "uat", bucketTags["Environment"])
 	assert.Equal(t, "bucket", bucketTags["Stack"])
-	assert.Equal(t, "uploads", bucketTags["Attributes"])
 
 	ssmParameterID := terraform.Output(t, options, "example_ssm_parameter_id")
 	assert.Equal(t, "/example/nonlive/uat/EXAMPLE", ssmParameterID)

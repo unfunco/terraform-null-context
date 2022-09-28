@@ -25,33 +25,25 @@ variable "application" {
   type        = string
 }
 
-variable "attributes" {
-  default     = []
-  description = "A list of additional attributes."
-  type        = list(string)
-}
-
 variable "context" {
   default = {
-    account      = ""
-    application  = ""
-    attributes   = []
     organisation = ""
-    stack        = ""
+    application  = ""
+    account      = ""
     environment  = ""
+    stack        = ""
     tags         = {}
   }
 
   description = "Single object used for setting the entire context at once."
 
   type = object({
-    organisation = string
+    organisation = optional(string)
     application  = string
     account      = string
-    environment  = string
+    environment  = optional(string)
     stack        = string
-    attributes   = list(string)
-    tags         = object({})
+    tags         = optional(map(string))
   })
 }
 
@@ -62,7 +54,7 @@ variable "environment" {
 }
 
 variable "label_order" {
-  default     = ["application", "account", "environment", "stack", "attributes"]
+  default     = ["application", "account", "environment", "stack"]
   description = "List of labels in the order they should be applied."
   type        = list(string)
 }
@@ -74,7 +66,7 @@ variable "organisation" {
 }
 
 variable "path_order" {
-  default     = ["application", "account", "environment"]
+  default     = ["application", "account", "environment", "stack"]
   description = "List of path components in the order they should be applied."
   type        = list(string)
 }
@@ -88,5 +80,5 @@ variable "stack" {
 variable "tags" {
   default     = {}
   description = "Map of tags to be applied to resources."
-  type        = object({})
+  type        = map(string)
 }

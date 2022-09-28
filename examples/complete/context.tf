@@ -21,7 +21,6 @@ module "context" {
   account      = var.account
   environment  = var.environment
   stack        = var.stack
-  attributes   = var.attributes
   tags         = var.tags
 }
 
@@ -29,7 +28,6 @@ variable "context" {
   default = {
     account      = ""
     application  = ""
-    attributes   = []
     organisation = ""
     stack        = ""
     environment  = ""
@@ -41,7 +39,6 @@ variable "context" {
   type = object({
     account      = string
     application  = string
-    attributes   = list(string)
     organisation = string
     stack        = string
     environment  = string
@@ -77,12 +74,6 @@ variable "stack" {
   default     = ""
   description = "The name of the stack."
   type        = string
-}
-
-variable "attributes" {
-  default     = []
-  description = "A list of additional attributes."
-  type        = list(string)
 }
 
 variable "tags" {
