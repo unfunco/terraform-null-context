@@ -14,7 +14,7 @@
 // limitations under the License.
 
 module "context" {
-  source = "../"
+  source = "../../"
 
   organisation = var.organisation
   application  = var.application
