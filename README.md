@@ -1,5 +1,7 @@
 # Terraform context module
 
+![CI](https://github.com/unfunco/terraform-null-context/actions/workflows/ci.yaml/badge.svg)
+
 Terraform module for enforcing consistent naming and tagging conventions.
 This module is not tied to any specific Cloud provider but the output it
 produces and the conventions it applies are currently targeted towards AWS
