@@ -2,11 +2,7 @@
 
 ![CI](https://github.com/unfunco/terraform-null-context/actions/workflows/ci.yaml/badge.svg)
 
-Terraform module for enforcing consistent naming and tagging conventions.
-This module is not tied to any specific Cloud provider but the output it
-produces and the conventions it applies are currently targeted towards AWS
-resources. When using the context module, resources are disambiguated so that
-multiple instances of the same resource can exist within a AWS single account.
+Terraform module for generating consistent naming and tagging conventions.
 
 ## Getting started
 
@@ -61,7 +57,7 @@ website_bucket_tags = tomap({
 })
 ```
 
-#### Inputs
+#### Variables
 
 | Name           | Default | Description                              |
 |----------------|:-------:|------------------------------------------|

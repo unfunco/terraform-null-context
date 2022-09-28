@@ -25,7 +25,7 @@ import (
 
 func TestExample(t *testing.T) {
 	options := &terraform.Options{
-		TerraformDir: "../example",
+		TerraformDir: "../examples/complete",
 		Upgrade:      true,
 	}
 
