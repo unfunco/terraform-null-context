@@ -38,25 +38,31 @@ variable "context" {
     attributes   = []
     organisation = ""
     stack        = ""
-    stage        = ""
+    environment  = ""
     tags         = {}
   }
 
   description = "Single object used for setting the entire context at once."
 
   type = object({
-    account      = string
-    application  = string
-    attributes   = list(string)
     organisation = string
+    application  = string
+    account      = string
+    environment  = string
     stack        = string
-    stage        = string
+    attributes   = list(string)
     tags         = object({})
   })
 }
 
+variable "environment" {
+  default     = ""
+  description = "The name of the environment."
+  type        = string
+}
+
 variable "label_order" {
-  default     = ["application", "account", "stage", "stack", "attributes"]
+  default     = ["application", "account", "environment", "stack", "attributes"]
   description = "List of labels in the order they should be applied."
   type        = list(string)
 }
@@ -68,7 +74,7 @@ variable "organisation" {
 }
 
 variable "path_order" {
-  default     = ["application", "account", "stage"]
+  default     = ["application", "account", "environment"]
   description = "List of path components in the order they should be applied."
   type        = list(string)
 }
@@ -76,12 +82,6 @@ variable "path_order" {
 variable "stack" {
   default     = ""
   description = "The name of the stack."
-  type        = string
-}
-
-variable "stage" {
-  default     = ""
-  description = "The name of the stage."
   type        = string
 }
 

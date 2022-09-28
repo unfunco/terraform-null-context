@@ -19,7 +19,7 @@ module "context" {
   organisation = var.organisation
   application  = var.application
   account      = var.account
-  stage        = var.stage
+  environment  = var.environment
   stack        = var.stack
   attributes   = var.attributes
   tags         = var.tags
@@ -32,7 +32,7 @@ variable "context" {
     attributes   = []
     organisation = ""
     stack        = ""
-    stage        = ""
+    environment  = ""
     tags         = {}
   }
 
@@ -44,7 +44,7 @@ variable "context" {
     attributes   = list(string)
     organisation = string
     stack        = string
-    stage        = string
+    environment  = string
     tags         = object({})
   })
 }
@@ -55,21 +55,21 @@ variable "organisation" {
   type        = string
 }
 
-variable "account" {
-  default     = ""
-  description = "The name of the account."
-  type        = string
-}
-
 variable "application" {
   default     = ""
   description = "The name of the application."
   type        = string
 }
 
-variable "stage" {
+variable "account" {
   default     = ""
-  description = "The name of the stage."
+  description = "The name of the account."
+  type        = string
+}
+
+variable "environment" {
+  default     = ""
+  description = "The name of the environment."
   type        = string
 }
 

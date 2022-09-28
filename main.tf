@@ -18,7 +18,7 @@ locals {
     organisation = var.organisation == "" ? var.context.organisation : var.organisation
     application  = var.application == "" ? var.context.application : var.application
     account      = var.account == "" ? var.context.account : var.account
-    stage        = var.stage == "" ? var.context.stage : var.stage
+    environment  = var.environment == "" ? var.context.environment : var.environment
     stack        = var.stack == "" ? var.context.stack : var.stack
     attributes   = compact(distinct(concat(coalesce(var.context.attributes, []), coalesce(var.attributes, []))))
     tags         = merge(var.context.tags, var.tags)
@@ -27,7 +27,7 @@ locals {
   organisation = local.input.organisation == null ? "" : lower(replace(local.input.organisation, "/\\W/", ""))
   application  = local.input.application == null ? "" : lower(replace(local.input.application, "/\\W/", ""))
   account      = local.input.account == null ? "" : lower(replace(local.input.account, "/\\W/", ""))
-  stage        = local.input.stage == null ? "" : lower(replace(local.input.stage, "/\\W/", ""))
+  environment  = local.input.environment == null ? "" : lower(replace(local.input.environment, "/\\W/", ""))
   stack        = local.input.stack == null ? "" : lower(replace(local.input.stack, "/\\W/", ""))
   attributes   = compact(distinct([for v in local.input.attributes : lower(v)]))
 
@@ -35,7 +35,7 @@ locals {
     organisation = local.organisation
     application  = local.application
     account      = local.account
-    stage        = local.stage
+    environment  = local.environment
     stack        = local.stack
     attributes   = join("-", local.attributes)
   }
@@ -54,7 +54,7 @@ locals {
     organisation = local.organisation
     application  = local.application
     account      = local.account
-    stage        = local.stage
+    environment  = local.environment
     stack        = local.stack
     attributes   = local.attributes
     tags         = local.tags

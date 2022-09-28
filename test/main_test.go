@@ -40,7 +40,7 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, "honestempire", bucketTags["Organisation"])
 	assert.Equal(t, "example", bucketTags["Application"])
 	assert.Equal(t, "nonlive", bucketTags["Account"])
-	assert.Equal(t, "uat", bucketTags["Stage"])
+	assert.Equal(t, "uat", bucketTags["Environment"])
 	assert.Equal(t, "bucket", bucketTags["Stack"])
 	assert.Equal(t, "uploads", bucketTags["Attributes"])
 
@@ -51,5 +51,5 @@ func TestExample(t *testing.T) {
 	assert.Equal(t, "honestempire", ssmParameterTags["Organisation"])
 	assert.Equal(t, "example", ssmParameterTags["Application"])
 	assert.Equal(t, "nonlive", ssmParameterTags["Account"])
-	assert.Equal(t, "uat", ssmParameterTags["Stage"])
+	assert.Equal(t, "uat", ssmParameterTags["Environment"])
 }

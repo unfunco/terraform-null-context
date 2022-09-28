@@ -33,6 +33,11 @@ output "context" {
   value       = local.input
 }
 
+output "environment" {
+  description = "The normalised name of the environment."
+  value       = local.environment
+}
+
 output "id" {
   description = "The disambiguated ID of the module."
   value       = local.id
@@ -51,11 +56,6 @@ output "path" {
 output "stack" {
   description = "The normalised name of the stack."
   value       = local.stack
-}
-
-output "stage" {
-  description = "The normalised name of the stage."
-  value       = local.stage
 }
 
 output "tags" {

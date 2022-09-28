@@ -23,7 +23,7 @@ module "context" {
   organisation = var.organisation
   application  = var.application
   account      = var.account
-  stage        = var.stage
+  environment  = var.environment
   stack        = var.stack
   attributes   = var.attributes
   tags         = var.tags
@@ -35,7 +35,7 @@ module "context" {
   "organisation": "Honest Empire",
   "application": "Serious Balls",
   "account": "Live",
-  "stage": "Live",
+  "environment": "Live",
   "stack": "website"
 }
 ```
@@ -51,33 +51,33 @@ resource "aws_s3_bucket" "website" {
 website_bucket_id = "seriousballs-live-website"
 
 website_bucket_tags = tomap({
-  "Account" = "live"
-  "Application" = "example"
+  "Account"      = "live"
+  "Application"  = "example"
   "Organisation" = "honestempire"
-  "Stack" = "website"
-  "Stage" = "live"
+  "Stack"        = "website"
+  "Environment"  = "live"
 })
 ```
 
 #### Inputs
 
-| Name           | Default | Description                                       |
-|----------------|:-------:|---------------------------------------------------|
-| `organisation` |  `""`   | The name of the organisation.                     |
-| `application`  |  `""`   | The name of the application.                      |
-| `account`      |  `""`   | The name of the account.                          |
-| `stage`        |  `""`   | The name of the stage.                            |
-| `stack`        |  `""`   | The name of the stack.                            |
-| `attributes`   |  `[]`   | A list of additional attributes.                  |
-| `tags`         |  `{}`   | A map of tags to apply to all resources.          |
+| Name           | Default | Description                              |
+|----------------|:-------:|------------------------------------------|
+| `organisation` |  `""`   | The name of the organisation.            |
+| `application`  |  `""`   | The name of the application.             |
+| `account`      |  `""`   | The name of the account.                 |
+| `environment`  |  `""`   | The name of the environment.             |
+| `stack`        |  `""`   | The name of the stack.                   |
+| `attributes`   |  `[]`   | A list of additional attributes.         |
+| `tags`         |  `{}`   | A map of tags to apply to all resources. |
 
 #### Outputs
 
 The outputs have been separated into two tables, the first table contains the
 outputs that are most likely to be provided as inputs to other resources. The ID
-output is a hyphenated concatenation of the application, account, stage and
-stack inputs, and can be used for resource names, the path is slash-delimited,
-and can be used for SSM parameter prefixes, for example.
+output is a hyphenated concatenation of the application, account, environment
+and stack inputs, and can be used for resource names, the path is
+slash-delimited, and can be used for SSM parameter prefixes, for example.
 
 | Name           | Description                                                 |
 |----------------|-------------------------------------------------------------|
@@ -92,7 +92,7 @@ the input variables.
 | `organisation` | The normalised name of the organisation.                        |
 | `application`  | The normalised name of the application.                         |
 | `account`      | The normalised name of the account.                             |
-| `stage`        | The normalised name of the stage.                               |
+| `environment`  | The normalised name of the environment.                         |
 | `stack`        | The normalised name of the stack.                               |
 | `attributes`   | A list of normalised additional attributes.                     |
 | `tags`         | The normalised map of tags.                                     |

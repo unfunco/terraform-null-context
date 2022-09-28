@@ -1,6 +1,6 @@
 organisation = "Honest Empire"
 application  = "Example"
 account      = "NonLive"
-stage        = "UAT"
+environment  = "UAT"
 stack        = "bucket"
 attributes   = ["uploads"]
