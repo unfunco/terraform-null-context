@@ -37,11 +37,11 @@ variable "context" {
   description = "Single object used for setting the entire context at once."
 
   type = object({
-    account      = string
-    application  = string
     organisation = string
-    stack        = string
+    application  = string
+    account      = string
     environment  = string
+    stack        = string
     tags         = object({})
   })
 }

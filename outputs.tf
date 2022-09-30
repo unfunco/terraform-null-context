@@ -23,11 +23,6 @@ output "application" {
   value       = local.application
 }
 
-output "context" {
-  description = "Merged but otherwise unmodified input given to this module."
-  value       = local.input
-}
-
 output "environment" {
   description = "The normalised name of the environment."
   value       = local.environment

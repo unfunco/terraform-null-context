@@ -14,41 +14,19 @@
 // limitations under the License.
 
 variable "account" {
-  default     = ""
+  default     = null
   description = "The name of the account."
   type        = string
 }
 
 variable "application" {
-  default     = ""
+  default     = null
   description = "The name of the application."
   type        = string
 }
 
-variable "context" {
-  default = {
-    organisation = ""
-    application  = ""
-    account      = ""
-    environment  = ""
-    stack        = ""
-    tags         = {}
-  }
-
-  description = "Single object used for setting the entire context at once."
-
-  type = object({
-    organisation = optional(string)
-    application  = string
-    account      = string
-    environment  = optional(string)
-    stack        = string
-    tags         = optional(map(string))
-  })
-}
-
 variable "environment" {
-  default     = ""
+  default     = null
   description = "The name of the environment."
   type        = string
 }
@@ -60,7 +38,7 @@ variable "label_order" {
 }
 
 variable "organisation" {
-  default     = ""
+  default     = null
   description = "The name of the organisation."
   type        = string
 }
@@ -72,13 +50,13 @@ variable "path_order" {
 }
 
 variable "stack" {
-  default     = ""
+  default     = null
   description = "The name of the stack."
   type        = string
 }
 
 variable "tags" {
   default     = {}
-  description = "Map of tags to be applied to resources."
+  description = "A map of tags to be applied to all applicable resources."
   type        = map(string)
 }

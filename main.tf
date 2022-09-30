@@ -14,45 +14,30 @@
 // limitations under the License.
 
 locals {
-  input = {
-    organisation = var.organisation == "" ? var.context.organisation : var.organisation
-    application  = var.application == "" ? var.context.application : var.application
-    account      = var.account == "" ? var.context.account : var.account
-    environment  = var.environment == "" ? var.context.environment : var.environment
-    stack        = var.stack == "" ? var.context.stack : var.stack
-    tags         = merge(var.context.tags, var.tags)
-  }
-
-  organisation = local.input.organisation == null ? "" : lower(replace(local.input.organisation, "/\\W/", ""))
-  application  = local.input.application == null ? "" : lower(replace(local.input.application, "/\\W/", ""))
-  account      = local.input.account == null ? "" : lower(replace(local.input.account, "/\\W/", ""))
-  environment  = local.input.environment == null ? "" : lower(replace(local.input.environment, "/\\W/", ""))
-  stack        = local.input.stack == null ? "" : lower(replace(local.input.stack, "/\\W/", ""))
+  organisation = var.organisation == null ? "" : lower(replace(var.organisation, "/\\W/", ""))
+  application  = var.application == null ? "" : lower(replace(var.application, "/\\W/", ""))
+  account      = var.account == null ? "" : lower(replace(var.account, "/\\W/", ""))
+  environment  = var.environment == null ? "" : lower(replace(var.environment, "/\\W/", ""))
+  stack        = var.stack == null ? "" : lower(replace(var.stack, "/\\W/", ""))
 
   local_context = {
     organisation = local.organisation
     application  = local.application
     account      = local.account
-    environment  = local.environment
+    environment  = local.account == local.environment ? "" : local.environment
     stack        = local.stack
   }
 
-  labels      = [for l in var.label_order : local.local_context[l] if length(local.local_context[l]) > 0]
-  path_labels = [for p in var.path_order : local.local_context[p] if length(local.local_context[p]) > 0]
+  parts = [
+    for l in var.label_order :
+    local.local_context[l] if length(local.local_context[l]) > 0
+  ]
 
-  id   = join("-", distinct(local.labels))
-  path = "/${join("/", distinct(local.path_labels))}"
+  id   = join("-", local.parts)
+  path = "/${join("/", local.parts)}"
 
   tags = {
-    for t in keys(local.local_context) : title(t) => local.local_context[t] if length(local.local_context[t]) > 0
-  }
-
-  output_context = {
-    organisation = local.organisation
-    application  = local.application
-    account      = local.account
-    environment  = local.environment
-    stack        = local.stack
-    tags         = local.tags
+    for t in keys(local.local_context) :
+    title(t) => local.local_context[t] if length(local.local_context[t]) > 0
   }
 }

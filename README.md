@@ -9,6 +9,7 @@ Terraform module for generating consistent naming and tagging conventions.
 
 ### Requirements
 
+* [Go] 1.19+ for unit-testing
 * [Terraform] 1.3+
 
 ### Installation and usage
@@ -17,6 +18,8 @@ The following documentation demonstrates the recommended way to use this module.
 
 ```terraform
 module "context" {
+  // source = "registry.terraform.io/unfunco/null/context"
+  // version = "0.2.0"
   source = "git::git@github.com:unfunco/terraform-null-context.git?ref=main"
 
   organisation = var.organisation
@@ -31,7 +34,7 @@ module "context" {
 ```json
 {
   "organisation": "Honest Empire",
-  "application": "Serious Balls",
+  "application": "Hyperglug",
   "account": "live",
   "environment": "live",
   "stack": "website-v1"
@@ -39,12 +42,12 @@ module "context" {
 ```
 
 ```terraform
-resource "aws_s3_bucket" "website" {
+resource "aws_s3_bucket" "website_v1" {
   bucket = module.context.id
   tags   = module.context.tags
 }
 
-resource "aws_ssm_parameter" "x" {
+resource "aws_ssm_parameter" "service_api_token" {
   name  = join("/", [module.context.path, "SERVICE-API-TOKEN"])
   tags  = module.context.tags
   type  = "SecureString"
@@ -53,26 +56,38 @@ resource "aws_ssm_parameter" "x" {
 ```
 
 ```terraform
-website_bucket_id = "seriousballs-live-website"
+website_bucket_id = "hyperglug-live-website-v1"
 
 website_bucket_tags = tomap({
   "Account"      = "live"
-  "Application"  = "example"
+  "Application"  = "hyperglug"
   "Organisation" = "honestempire"
-  "Stack"        = "website"
+  "Stack"        = "website-v1"
   "Environment"  = "live"
 })
+```
+
+```typescript
+const context = JSON.stringify({
+  organisation,
+  application,
+  account,
+  environment,
+  stack,
+})
+
+await $`terraform apply -var 'context=${context}'`
 ```
 
 #### Variables
 
 | Name           | Default | Description                              |
 |----------------|:-------:|------------------------------------------|
-| `organisation` |  `""`   | The name of the organisation.            |
-| `application`  |  `""`   | The name of the application.             |
-| `account`      |  `""`   | The name of the account.                 |
-| `environment`  |  `""`   | The name of the environment.             |
-| `stack`        |  `""`   | The name of the stack.                   |
+| `organisation` | `null`  | The name of the organisation.            |
+| `application`  | `null`  | The name of the application.             |
+| `account`      | `null`  | The name of the account.                 |
+| `environment`  | `null`  | The name of the environment.             |
+| `stack`        | `null`  | The name of the stack.                   |
 | `tags`         |  `{}`   | A map of tags to apply to all resources. |
 
 #### Outputs
@@ -99,7 +114,6 @@ the input variables.
 | `environment`  | The normalised name of the environment.                         |
 | `stack`        | The normalised name of the stack.                               |
 | `tags`         | The normalised map of tags.                                     |
-| `context`      | The merged but otherwise unmodified input given to this module. |
 
 ## License
 
@@ -107,5 +121,6 @@ the input variables.
 Made available under the terms of the [Apache License 2.0](LICENSE.md).
 
 [Daniel Morris]: https://unfun.co
+[Go]: https://go.dev
 [Honest Empire Ltd]: https://www.honestempire.com
 [Terraform]: https://www.terraform.io
