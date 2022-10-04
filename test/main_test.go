@@ -32,8 +32,33 @@ type context struct {
 	Stack        string `json:"stack"`
 }
 
-func TestBucketID(t *testing.T) {
-	exampleContext, _ := json.Marshal(&context{
+func TestID(t *testing.T) {
+	testContext, _ := json.Marshal(&context{
+		Organisation: "honestempire",
+		Application:  "example",
+		Account:      "nonlive",
+		Environment:  "acceptance",
+		Stack:        "assets",
+	})
+
+	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/complete",
+		Upgrade:      true,
+		Vars: map[string]any{
+			"context": string(testContext),
+		},
+	})
+
+	defer terraform.Destroy(t, options)
+
+	terraform.InitAndApply(t, options)
+
+	id := terraform.Output(t, options, "test_bucket_id")
+	assert.True(t, strings.HasPrefix(id, "example-nonlive-acceptance-assets"))
+}
+
+func TestPath(t *testing.T) {
+	testContext, _ := json.Marshal(&context{
 		Organisation: "honestempire",
 		Application:  "example",
 		Account:      "nonlive",
@@ -45,7 +70,7 @@ func TestBucketID(t *testing.T) {
 		TerraformDir: "../examples/complete",
 		Upgrade:      true,
 		Vars: map[string]any{
-			"context": string(exampleContext),
+			"context": string(testContext),
 		},
 	}
 
@@ -53,6 +78,6 @@ func TestBucketID(t *testing.T) {
 
 	terraform.InitAndApply(t, options)
 
-	id := terraform.Output(t, options, "test_bucket_id")
-	assert.True(t, strings.HasPrefix(id, "example-nonlive-acceptance-assets"))
+	name := terraform.Output(t, options, "test_ssm_parameter_path")
+	assert.Equal(t, "/example/nonlive/acceptance/assets/TEST", name)
 }

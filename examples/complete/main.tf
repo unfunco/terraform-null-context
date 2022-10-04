@@ -22,8 +22,8 @@ resource "aws_s3_bucket" "test" {
   tags          = module.context.tags
 }
 
-resource "aws_ssm_parameter" "example_ssm_parameter" {
-  name  = join("/", [module.context.path, "EXAMPLE"])
+resource "aws_ssm_parameter" "test" {
+  name  = join("/", [module.context.path, "TEST"])
   tags  = module.context.tags
   type  = "SecureString"
   value = "CorrectHorseBatteryStaple"
@@ -35,4 +35,8 @@ output "test_bucket_id" {
 
 output "test_bucket_tags" {
   value = aws_s3_bucket.test.tags
+}
+
+output "test_ssm_parameter_name" {
+  value = aws_ssm_parameter.test.name
 }
