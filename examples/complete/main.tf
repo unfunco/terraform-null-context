@@ -17,7 +17,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-resource "aws_s3_bucket" "example_bucket" {
+resource "aws_s3_bucket" "test" {
   bucket_prefix = module.context.id
   tags          = module.context.tags
 }
@@ -29,18 +29,10 @@ resource "aws_ssm_parameter" "example_ssm_parameter" {
   value = "CorrectHorseBatteryStaple"
 }
 
-output "example_bucket_id" {
-  value = aws_s3_bucket.example_bucket.id
+output "test_bucket_id" {
+  value = aws_s3_bucket.test.id
 }
 
-output "example_bucket_tags" {
-  value = aws_s3_bucket.example_bucket.tags
-}
-
-output "example_ssm_parameter_id" {
-  value = aws_ssm_parameter.example_ssm_parameter.id
-}
-
-output "example_ssm_parameter_tags" {
-  value = aws_ssm_parameter.example_ssm_parameter.tags
+output "test_bucket_tags" {
+  value = aws_s3_bucket.test.tags
 }

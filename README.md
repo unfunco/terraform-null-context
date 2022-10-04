@@ -5,7 +5,7 @@
 
 Terraform module for generating consistent naming and tagging conventions.
 This is not tied to any specific provider but has generally been used with
-Amazon Web Services to generate billing tags and unique resource names.
+Amazon Web Services to generate billing tags and unique names for resources.
 
 ## Getting started
 

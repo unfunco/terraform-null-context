@@ -16,6 +16,7 @@
 package main
 
 import (
+	"encoding/json"
 	"strings"
 	"testing"
 
@@ -23,32 +24,33 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestExample(t *testing.T) {
+type context struct {
+	Organisation string `json:"organisation,omitempty"`
+	Application  string `json:"application"`
+	Account      string `json:"account"`
+	Environment  string `json:"environment"`
+	Stack        string `json:"stack"`
+}
+
+func testID(t *testing.T) {
+	exampleContext, _ := json.Marshal(&context{
+		Organisation: "honestempire",
+		Application:  "example",
+		Account:      "nonlive",
+		Environment:  "acceptance",
+		Stack:        "assets",
+	})
+
 	options := &terraform.Options{
 		TerraformDir: "../examples/complete",
 		Upgrade:      true,
+		Vars: map[string]any{
+			"context": string(exampleContext),
+		},
 	}
 
 	defer terraform.Destroy(t, options)
 
-	terraform.InitAndApply(t, options)
-
-	bucketID := terraform.Output(t, options, "example_bucket_id")
-	assert.True(t, strings.HasPrefix(bucketID, "example-nonlive-uat-bucket-uploads"))
-
-	bucketTags := terraform.OutputMap(t, options, "example_bucket_tags")
-	assert.Equal(t, "honestempire", bucketTags["Organisation"])
-	assert.Equal(t, "example", bucketTags["Application"])
-	assert.Equal(t, "nonlive", bucketTags["Account"])
-	assert.Equal(t, "uat", bucketTags["Environment"])
-	assert.Equal(t, "bucket", bucketTags["Stack"])
-
-	ssmParameterID := terraform.Output(t, options, "example_ssm_parameter_id")
-	assert.Equal(t, "/example/nonlive/uat/EXAMPLE", ssmParameterID)
-
-	ssmParameterTags := terraform.OutputMap(t, options, "example_ssm_parameter_tags")
-	assert.Equal(t, "honestempire", ssmParameterTags["Organisation"])
-	assert.Equal(t, "example", ssmParameterTags["Application"])
-	assert.Equal(t, "nonlive", ssmParameterTags["Account"])
-	assert.Equal(t, "uat", ssmParameterTags["Environment"])
+	id := terraform.Output(t, options, "test_bucket_id")
+	assert.True(t, strings.HasPrefix(id, "example-nonlive-acceptance-assets"))
 }
