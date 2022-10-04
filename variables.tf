@@ -14,13 +14,11 @@
 // limitations under the License.
 
 variable "account" {
-  default     = null
   description = "The name of the account."
   type        = string
 }
 
 variable "application" {
-  default     = null
   description = "The name of the application."
   type        = string
 }
@@ -44,7 +42,6 @@ variable "organisation" {
 }
 
 variable "stack" {
-  default     = null
   description = "The name of the stack."
   type        = string
 }
