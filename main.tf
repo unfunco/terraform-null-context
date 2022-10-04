@@ -20,7 +20,7 @@ locals {
   environment  = var.environment == null ? "" : lower(replace(var.environment, "/\\W/", ""))
   stack        = var.stack == null ? "" : lower(replace(var.stack, "/\\W/", ""))
 
-  local_context = {
+  context = {
     organisation = local.organisation
     application  = local.application
     account      = local.account
@@ -29,15 +29,12 @@ locals {
   }
 
   parts = [
-    for l in var.label_order :
-    local.local_context[l] if length(local.local_context[l]) > 0
+    for l in var.label_order : local.context[l] if length(local.context[l]) > 0
   ]
 
   id   = join("-", local.parts)
   path = "/${join("/", local.parts)}"
-
   tags = {
-    for t in keys(local.local_context) :
-    title(t) => local.local_context[t] if length(local.local_context[t]) > 0
+    for t in keys(local.context) : title(t) => local.context[t] if length(local.context[t]) > 0
   }
 }

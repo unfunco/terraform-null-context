@@ -4,8 +4,9 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-purple.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Terraform module for generating consistent naming and tagging conventions.
-This is not tied to any specific provider but has generally been used with
-Amazon Web Services to generate billing tags and unique names for resources.
+This module is not tied to any specific provider but has generally been used
+with Amazon Web Services to generate billing tags and unique names for
+infrastructure resources.
 
 ## Getting started
 
@@ -42,6 +43,18 @@ variable "context" {
 ```
 
 ```terraform
+generate "context" {
+  contents = <<EOF
+module "context" { ... }
+variable "context" { ... }
+EOF
+
+  if_exists = "overwrite"
+  path      = "context.tf"
+}
+```
+
+```terraform
 resource "aws_s3_bucket" "assets" {
   bucket = module.context.id
   tags   = module.context.tags
@@ -56,32 +69,36 @@ resource "aws_ssm_parameter" "service_api_token" {
 ```
 
 ```bash
-TF_WORKSPACE=hyperglug_live_assets terraform apply -lock="true" -lock-timeout="1m" \
--var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
--var-file="stack.tfvars.json"
+TF_WORKSPACE=hyperglug_live_assets terraform apply \
+  -lock="true" \
+  -lock-timeout="1m" \
+  -var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
+  -var-file="assets.tfvars.json"
 ```
 
 ```terraform
-website_bucket_id = "hyperglug-live-assets"
+bucket_id = "hyperglug-live-assets"
 
-website_bucket_tags = tomap({
+bucket_tags = tomap({
   "Account"      = "live"
   "Application"  = "hyperglug"
   "Organisation" = "honestempire"
   "Stack"        = "assets"
   "Environment"  = "live"
 })
+
+ssm_parameter_name = "/hyperglug/live/assets/SERVICE-API-TOKEN"
 ```
 
 #### Variables
 
-| Name           | Default | Description                              |
-|----------------|:-------:|------------------------------------------|
-| `organisation` | `null`  | The name of the organisation.            |
-| `application`  | `null`  | The name of the application.             |
-| `account`      | `null`  | The name of the account.                 |
-| `environment`  | `null`  | The name of the environment.             |
-| `stack`        | `null`  | The name of the stack.                   |
+| Name           | Default | Description                   |
+|----------------|:-------:|-------------------------------|
+| `organisation` | `null`  | The name of the organisation. |
+| `application`  | `null`  | The name of the application.  |
+| `account`      | `null`  | The name of the account.      |
+| `environment`  | `null`  | The name of the environment.  |
+| `stack`        | `null`  | The name of the stack.        |
 
 #### Outputs
 
@@ -91,22 +108,22 @@ output is a hyphenated concatenation of the application, account, environment
 and stack inputs, and can be used for resource names, the path is
 slash-delimited, and can be used for SSM parameter prefixes, for example.
 
-| Name           | Description                                                 |
-|----------------|-------------------------------------------------------------|
-| `id`           | The disambiguated ID of the module.                         |
-| `path`         | The disambiguated ID delimited with slashes.                |
+| Name   | Description                                  |
+|--------|----------------------------------------------|
+| `id`   | The disambiguated ID of the module.          |
+| `path` | The disambiguated ID delimited with slashes. |
+| `tags` | The normalised map of tags.                  |
 
 The next table contains the outputs that are really just normalised versions of
 the input variables.
 
-| Name           | Description                                                     |
-|----------------|-----------------------------------------------------------------|
-| `organisation` | The normalised name of the organisation.                        |
-| `application`  | The normalised name of the application.                         |
-| `account`      | The normalised name of the account.                             |
-| `environment`  | The normalised name of the environment.                         |
-| `stack`        | The normalised name of the stack.                               |
-| `tags`         | The normalised map of tags.                                     |
+| Name           | Description                              |
+|----------------|------------------------------------------|
+| `organisation` | The normalised name of the organisation. |
+| `application`  | The normalised name of the application.  |
+| `account`      | The normalised name of the account.      |
+| `environment`  | The normalised name of the environment.  |
+| `stack`        | The normalised name of the stack.        |
 
 ## License
 

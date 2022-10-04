@@ -32,7 +32,9 @@ type context struct {
 	Stack        string `json:"stack"`
 }
 
-func TestID(t *testing.T) {
+// TestMultipleEnvironmentAccount tests that when the account and environment
+// context variables are different, both parts are included in the outputs.
+func TestMultipleEnvironmentAccount(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
 		Organisation: "honestempire",
 		Application:  "example",
@@ -55,29 +57,36 @@ func TestID(t *testing.T) {
 
 	id := terraform.Output(t, options, "test_bucket_id")
 	assert.True(t, strings.HasPrefix(id, "example-nonlive-acceptance-assets"))
+	name := terraform.Output(t, options, "test_ssm_parameter_name")
+	assert.Equal(t, "/example/nonlive/acceptance/assets/TEST", name)
 }
 
-func TestPath(t *testing.T) {
+// TestSingleEnvironmentAccount tests that when the account and environment
+// context variables are the same, then it only appears once in the outputs.
+func TestSingleEnvironmentAccount(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
 		Organisation: "honestempire",
 		Application:  "example",
-		Account:      "nonlive",
-		Environment:  "acceptance",
+		Account:      "live",
+		Environment:  "live",
 		Stack:        "assets",
 	})
 
-	options := &terraform.Options{
+	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "../examples/complete",
 		Upgrade:      true,
 		Vars: map[string]any{
 			"context": string(testContext),
 		},
-	}
+	})
 
 	defer terraform.Destroy(t, options)
 
 	terraform.InitAndApply(t, options)
 
+	id := terraform.Output(t, options, "test_bucket_id")
+	assert.True(t, strings.HasPrefix(id, "example-live-assets"))
+
 	name := terraform.Output(t, options, "test_ssm_parameter_name")
-	assert.Equal(t, "/example/nonlive/acceptance/assets/TEST", name)
+	assert.Equal(t, "/example/live/assets/TEST", name)
 }
