@@ -4,6 +4,8 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-purple.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Terraform module for generating consistent naming and tagging conventions.
+This is not tied to any specific provider but has generally been used with
+Amazon Web Services to generate billing tags and unique resource names.
 
 ## Getting started
 
@@ -14,35 +16,39 @@ Terraform module for generating consistent naming and tagging conventions.
 
 ### Installation and usage
 
-The following documentation demonstrates the recommended way to use this module.
-
 ```terraform
 module "context" {
-  // source = "registry.terraform.io/unfunco/null/context"
-  // version = "0.2.0"
-  source = "git::git@github.com:unfunco/terraform-null-context.git?ref=main"
+  source  = "registry.terraform.io/unfunco/context/null"
+  version = "0.3.0"
 
   organisation = var.organisation
   application  = var.application
   account      = var.account
   environment  = var.environment
   stack        = var.stack
-  tags         = var.tags
+}
+
+variable "context" {
+  description = ""
+
+  type = object({
+    organisation = optional(string)
+    application  = string
+    account      = string
+    environment  = optional(string)
+    stack        = string
+  })
 }
 ```
 
-```json
-{
-  "organisation": "Honest Empire",
-  "application": "Hyperglug",
-  "account": "live",
-  "environment": "live",
-  "stack": "website-v1"
-}
+```bash
+TF_WORKSPACE=hyperglug_live_assets terraform apply -lock="true" -lock-timeout="1m" \
+-var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
+-var-file="stack.tfvars.json"
 ```
 
 ```terraform
-resource "aws_s3_bucket" "website_v1" {
+resource "aws_s3_bucket" "assets" {
   bucket = module.context.id
   tags   = module.context.tags
 }
@@ -62,21 +68,9 @@ website_bucket_tags = tomap({
   "Account"      = "live"
   "Application"  = "hyperglug"
   "Organisation" = "honestempire"
-  "Stack"        = "website-v1"
+  "Stack"        = "assets"
   "Environment"  = "live"
 })
-```
-
-```typescript
-const context = JSON.stringify({
-  organisation,
-  application,
-  account,
-  environment,
-  stack,
-})
-
-await $`terraform apply -var 'context=${context}'`
 ```
 
 #### Variables
@@ -88,7 +82,6 @@ await $`terraform apply -var 'context=${context}'`
 | `account`      | `null`  | The name of the account.                 |
 | `environment`  | `null`  | The name of the environment.             |
 | `stack`        | `null`  | The name of the stack.                   |
-| `tags`         |  `{}`   | A map of tags to apply to all resources. |
 
 #### Outputs
 

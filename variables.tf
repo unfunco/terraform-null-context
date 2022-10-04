@@ -43,20 +43,8 @@ variable "organisation" {
   type        = string
 }
 
-variable "path_order" {
-  default     = ["application", "account", "environment", "stack"]
-  description = "List of path components in the order they should be applied."
-  type        = list(string)
-}
-
 variable "stack" {
   default     = null
   description = "The name of the stack."
   type        = string
-}
-
-variable "tags" {
-  default     = {}
-  description = "A map of tags to be applied to all applicable resources."
-  type        = map(string)
 }
