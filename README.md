@@ -19,17 +19,17 @@ Amazon Web Services to generate billing tags and unique resource names.
 ```terraform
 module "context" {
   source  = "registry.terraform.io/unfunco/context/null"
-  version = "0.3.0"
+  version = "0.2.0"
 
-  organisation = var.organisation
-  application  = var.application
-  account      = var.account
-  environment  = var.environment
-  stack        = var.stack
+  organisation = var.context.organisation
+  application  = var.context.application
+  account      = var.context.account
+  environment  = var.context.environment
+  stack        = var.context.stack
 }
 
 variable "context" {
-  description = ""
+  description = "Single object for setting the entire context."
 
   type = object({
     organisation = optional(string)
@@ -39,12 +39,6 @@ variable "context" {
     stack        = string
   })
 }
-```
-
-```bash
-TF_WORKSPACE=hyperglug_live_assets terraform apply -lock="true" -lock-timeout="1m" \
--var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
--var-file="stack.tfvars.json"
 ```
 
 ```terraform
@@ -61,8 +55,14 @@ resource "aws_ssm_parameter" "service_api_token" {
 }
 ```
 
+```bash
+TF_WORKSPACE=hyperglug_live_assets terraform apply -lock="true" -lock-timeout="1m" \
+-var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
+-var-file="stack.tfvars.json"
+```
+
 ```terraform
-website_bucket_id = "hyperglug-live-website-v1"
+website_bucket_id = "hyperglug-live-assets"
 
 website_bucket_tags = tomap({
   "Account"      = "live"
