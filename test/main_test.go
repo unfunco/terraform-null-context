@@ -32,7 +32,7 @@ type context struct {
 	Stack        string `json:"stack"`
 }
 
-func testID(t *testing.T) {
+func TestBucketID(t *testing.T) {
 	exampleContext, _ := json.Marshal(&context{
 		Organisation: "honestempire",
 		Application:  "example",
