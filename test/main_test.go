@@ -28,7 +28,7 @@ type context struct {
 	Organisation string `json:"organisation,omitempty"`
 	Application  string `json:"application"`
 	Account      string `json:"account"`
-	Environment  string `json:"environment"`
+	Environment  string `json:"environment,omitempty"`
 	Stack        string `json:"stack"`
 }
 
@@ -50,6 +50,8 @@ func TestBucketID(t *testing.T) {
 	}
 
 	defer terraform.Destroy(t, options)
+
+	terraform.InitAndApply(t, options)
 
 	id := terraform.Output(t, options, "test_bucket_id")
 	assert.True(t, strings.HasPrefix(id, "example-nonlive-acceptance-assets"))
