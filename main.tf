@@ -28,6 +28,10 @@ locals {
     stack        = local.stack
   }
 
+  tag_context = merge(local.context, {
+    environment = local.environment
+  })
+
   parts = [
     for l in var.label_order : local.context[l] if length(local.context[l]) > 0
   ]
@@ -35,6 +39,6 @@ locals {
   id   = join("-", local.parts)
   path = "/${join("/", local.parts)}"
   tags = {
-    for t in keys(local.context) : title(t) => local.context[t] if length(local.context[t]) > 0
+    for t in keys(local.tag_context) : title(t) => local.tag_context[t] if length(local.tag_context[t]) > 0
   }
 }

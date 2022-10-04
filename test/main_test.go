@@ -67,8 +67,8 @@ func TestSingleEnvironmentAccount(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
 		Organisation: "honestempire",
 		Application:  "example",
-		Account:      "live",
-		Environment:  "live",
+		Account:      "nonlive",
+		Environment:  "nonlive",
 		Stack:        "assets",
 	})
 
@@ -85,8 +85,8 @@ func TestSingleEnvironmentAccount(t *testing.T) {
 	terraform.InitAndApply(t, options)
 
 	id := terraform.Output(t, options, "test_bucket_id")
-	assert.True(t, strings.HasPrefix(id, "example-live-assets"))
+	assert.True(t, strings.HasPrefix(id, "example-nonlive-assets"))
 
 	name := terraform.Output(t, options, "test_ssm_parameter_name")
-	assert.Equal(t, "/example/live/assets/TEST", name)
+	assert.Equal(t, "/example/nonlive/assets/TEST", name)
 }
