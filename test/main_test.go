@@ -78,6 +78,6 @@ func TestPath(t *testing.T) {
 
 	terraform.InitAndApply(t, options)
 
-	name := terraform.Output(t, options, "test_ssm_parameter_path")
+	name := terraform.Output(t, options, "test_ssm_parameter_name")
 	assert.Equal(t, "/example/nonlive/acceptance/assets/TEST", name)
 }
