@@ -3,9 +3,10 @@
 ![CI](https://github.com/unfunco/terraform-null-context/actions/workflows/ci.yaml/badge.svg)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-purple.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Terraform module for generating consistent naming and tagging conventions.
-This module is not tied to any specific provider but has generally been used
-with Amazon Web Services to generate billing tags and unique names for
+Terraform module for generating consistent names and tags.
+
+This module is not tied to any specific cloud provider but has generally been
+used with Amazon Web Services to generate unique names and billing tags for
 infrastructure resources.
 
 ## Getting started
@@ -16,6 +17,8 @@ infrastructure resources.
 * [Terraform] 1.3+
 
 ### Installation and usage
+
+Add the following Terraform to your stack:
 
 ```terraform
 module "context" {
@@ -42,6 +45,8 @@ variable "context" {
 }
 ```
 
+When using [Terragrunt], you can use a `generate` block to create the context.
+
 ```terraform
 generate "context" {
   contents = <<EOF
@@ -54,19 +59,25 @@ EOF
 }
 ```
 
+The outputs from the context module can be used to uniquely name and tag your
+infrastructure resources.
+
 ```terraform
 resource "aws_s3_bucket" "assets" {
   bucket = module.context.id
-  tags   = module.context.tags
+  tags   = merge(module.context.tags, var.tags)
 }
 
-resource "aws_ssm_parameter" "service_api_token" {
-  name  = join("/", [module.context.path, "SERVICE-API-TOKEN"])
-  tags  = module.context.tags
+resource "aws_ssm_parameter" "api_token" {
+  name  = join("/", [module.context.path, "API-TOKEN"])
+  tags  = merge(module.context.tags, var.tags)
   type  = "SecureString"
   value = "CorrectHorseBatteryStaple"
 }
 ```
+
+Automate the composition of CLI commands and pass in the context as JSON,
+an `apply` command might look something like this:
 
 ```bash
 TF_WORKSPACE=hyperglug_live_assets terraform apply \
@@ -75,6 +86,8 @@ TF_WORKSPACE=hyperglug_live_assets terraform apply \
   -var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
   -var-file="assets.tfvars.json"
 ```
+
+With the examples above, the following names and tags are generated:
 
 ```terraform
 bucket_id = "hyperglug-live-assets"
@@ -87,7 +100,7 @@ bucket_tags = tomap({
   "Environment"  = "live"
 })
 
-ssm_parameter_name = "/hyperglug/live/assets/SERVICE-API-TOKEN"
+ssm_parameter_name = "/hyperglug/live/assets/API-TOKEN"
 ```
 
 #### Variables
@@ -134,3 +147,4 @@ Made available under the terms of the [Apache License 2.0](LICENSE.md).
 [Go]: https://go.dev
 [Honest Empire Ltd]: https://www.honestempire.com
 [Terraform]: https://www.terraform.io
+[Terragrunt]: https://terragrunt.gruntwork.io
