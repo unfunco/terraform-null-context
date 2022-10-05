@@ -3,6 +3,11 @@
 Notable changes to this project are documented in this changelog.  
 This project adheres to the [semantic versioning] specification.
 
+## [0.3.0] – 2022-10-05
+
+* Renamed `organisation` to `organization` to avoid future conflict with Americans.
+* Prefer validation to sanitisation of input variables.
+
 ## [0.2.0] – 2022-10-05
 
 * Removed the `enabled` variable because it felt wrong.
@@ -22,4 +27,5 @@ This project adheres to the [semantic versioning] specification.
 [0.1.0]: https://github.com/unfunco/terraform-null-context/releases/tag/v0.1.0
 [0.1.1]: https://github.com/unfunco/terraform-null-context/compare/v0.1.0...v0.1.1
 [0.2.0]: https://github.com/unfunco/terraform-null-context/compare/v0.1.1...v0.2.0
+[0.3.0]: https://github.com/unfunco/terraform-null-context/compare/v0.2.0...v0.3.0
 [Semantic versioning]: https://semver.org
