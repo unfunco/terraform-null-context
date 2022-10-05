@@ -32,9 +32,7 @@ locals {
     environment = local.environment
   })
 
-  parts = [
-    for l in var.label_order : local.context[l] if length(local.context[l]) > 0
-  ]
+  parts = [for l in var.order : local.context[l] if length(local.context[l]) > 0]
 
   id   = join("-", local.parts)
   path = "/${join("/", local.parts)}"

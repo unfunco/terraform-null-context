@@ -105,13 +105,14 @@ ssm_parameter_name = "/hyperglug/live/assets/API-TOKEN"
 
 #### Variables
 
-| Name           | Default | Description                   |
-|----------------|:-------:|-------------------------------|
-| `organization` | `null`  | The name of the organization. |
-| `application`  | `null`  | The name of the application.  |
-| `account`      | `null`  | The name of the account.      |
-| `environment`  | `null`  | The name of the environment.  |
-| `stack`        | `null`  | The name of the stack.        |
+| Name           |                       Default                        | Description                                         |
+|----------------|:----------------------------------------------------:|-----------------------------------------------------|
+| `organization` |                        `null`                        | The name of the organization.                       |
+| `application`  |                        `null`                        | The name of the application.                        |
+| `account`      |                        `null`                        | The name of the account.                            |
+| `environment`  |                        `null`                        | The name of the environment.                        |
+| `order`        | `["application", "account", "environment", "stack"]` | List of labels in the order they should be applied. |
+| `stack`        |                        `null`                        | The name of the stack.                              |
 
 #### Outputs
 

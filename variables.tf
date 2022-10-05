@@ -39,7 +39,7 @@ variable "environment" {
   type        = string
 }
 
-variable "label_order" {
+variable "order" {
   default     = ["application", "account", "environment", "stack"]
   description = "List of labels in the order they should be applied."
   type        = list(string)
