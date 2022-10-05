@@ -44,4 +44,9 @@ variable "organisation" {
 variable "stack" {
   description = "The name of the stack."
   type        = string
+
+  validation {
+    error_message = "Stack can contain lowercase letters, numbers, and hyphens."
+    condition     = can(regex("^[0-9a-z-]+$", var.stack))
+  }
 }

@@ -90,3 +90,31 @@ func TestSingleEnvironmentAccount(t *testing.T) {
 	name := terraform.Output(t, options, "test_ssm_parameter_name")
 	assert.Equal(t, "/example/nonlive/assets/TEST", name)
 }
+
+func TestHyphenatedStack(t *testing.T) {
+	testContext, _ := json.Marshal(&context{
+		Organisation: "honestempire",
+		Application:  "example",
+		Account:      "nonlive",
+		Environment:  "uat",
+		Stack:        "website-v1",
+	})
+
+	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/complete",
+		Upgrade:      true,
+		Vars: map[string]any{
+			"context": string(testContext),
+		},
+	})
+
+	defer terraform.Destroy(t, options)
+
+	terraform.InitAndApply(t, options)
+
+	id := terraform.Output(t, options, "test_bucket_id")
+	assert.True(t, strings.HasPrefix(id, "example-nonlive-uat-website-v1"))
+
+	name := terraform.Output(t, options, "test_ssm_parameter_name")
+	assert.Equal(t, "/example/nonlive/uat/website-v1/TEST", name)
+}

@@ -18,7 +18,7 @@ locals {
   application  = var.application == null ? "" : lower(replace(var.application, "/\\W/", ""))
   account      = var.account == null ? "" : lower(replace(var.account, "/\\W/", ""))
   environment  = var.environment == null ? "" : lower(replace(var.environment, "/\\W/", ""))
-  stack        = var.stack == null ? "" : lower(replace(var.stack, "/\\W/", ""))
+  stack        = var.stack == null ? "" : var.stack
 
   context = {
     organisation = local.organisation
