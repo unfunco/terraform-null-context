@@ -23,7 +23,7 @@ Add the following Terraform to your stack:
 ```terraform
 module "context" {
   source  = "registry.terraform.io/unfunco/context/null"
-  version = "0.2.0"
+  version = "0.3.0"
 
   organization = var.context.organization
   application  = var.context.application
