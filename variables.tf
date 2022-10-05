@@ -16,11 +16,21 @@
 variable "account" {
   description = "The name of the account."
   type        = string
+
+  validation {
+    error_message = "The name of the account can contain lowercase letters, numbers, and hyphens."
+    condition     = can(regex("^[0-9a-z-]+$", var.account))
+  }
 }
 
 variable "application" {
   description = "The name of the application."
   type        = string
+
+  validation {
+    error_message = "The name of the application can contain lowercase letters, numbers, and hyphens."
+    condition     = can(regex("^[0-9a-z-]+$", var.application))
+  }
 }
 
 variable "environment" {
@@ -46,7 +56,7 @@ variable "stack" {
   type        = string
 
   validation {
-    error_message = "Stack can contain lowercase letters, numbers, and hyphens."
+    error_message = "The name of the stack can contain lowercase letters, numbers, and hyphens."
     condition     = can(regex("^[0-9a-z-]+$", var.stack))
   }
 }
