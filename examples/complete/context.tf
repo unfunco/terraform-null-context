@@ -16,7 +16,7 @@
 module "context" {
   source = "../../"
 
-  organisation = var.context.organisation
+  organization = var.context.organization
   application  = var.context.application
   account      = var.context.account
   environment  = var.context.environment
@@ -27,7 +27,7 @@ variable "context" {
   description = "Single object for setting the entire context."
 
   type = object({
-    organisation = optional(string)
+    organization = optional(string)
     application  = string
     account      = string
     environment  = optional(string)

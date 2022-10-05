@@ -14,14 +14,14 @@
 // limitations under the License.
 
 locals {
-  organisation = var.organisation == null ? "" : lower(replace(var.organisation, "/\\W/", ""))
+  organization = var.organization == null ? "" : lower(replace(var.organization, "/\\W/", ""))
   application  = var.application == null ? "" : lower(replace(var.application, "/\\W/", ""))
   account      = var.account == null ? "" : lower(replace(var.account, "/\\W/", ""))
   environment  = var.environment == null ? "" : lower(replace(var.environment, "/\\W/", ""))
   stack        = var.stack == null ? "" : var.stack
 
   context = {
-    organisation = local.organisation
+    organization = local.organization
     application  = local.application
     account      = local.account
     environment  = local.account == local.environment ? "" : local.environment

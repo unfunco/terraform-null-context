@@ -25,7 +25,7 @@ module "context" {
   source  = "registry.terraform.io/unfunco/context/null"
   version = "0.2.0"
 
-  organisation = var.context.organisation
+  organization = var.context.organization
   application  = var.context.application
   account      = var.context.account
   environment  = var.context.environment
@@ -36,7 +36,7 @@ variable "context" {
   description = "Single object for setting the entire context."
 
   type = object({
-    organisation = optional(string)
+    organization = optional(string)
     application  = string
     account      = string
     environment  = optional(string)
@@ -83,7 +83,7 @@ an `apply` command might look something like this:
 TF_WORKSPACE=hyperglug_live_assets terraform apply \
   -lock="true" \
   -lock-timeout="1m" \
-  -var='context={"organisation":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
+  -var='context={"organization":"honestempire","application":"hyperglug","account":"live","environment":"live","stack":"assets"}' \
   -var-file="assets.tfvars.json"
 ```
 
@@ -95,7 +95,7 @@ bucket_id = "hyperglug-live-assets"
 bucket_tags = tomap({
   "Account"      = "live"
   "Application"  = "hyperglug"
-  "Organisation" = "honestempire"
+  "Organization" = "honestempire"
   "Stack"        = "assets"
   "Environment"  = "live"
 })
@@ -107,7 +107,7 @@ ssm_parameter_name = "/hyperglug/live/assets/API-TOKEN"
 
 | Name           | Default | Description                   |
 |----------------|:-------:|-------------------------------|
-| `organisation` | `null`  | The name of the organisation. |
+| `organization` | `null`  | The name of the organization. |
 | `application`  | `null`  | The name of the application.  |
 | `account`      | `null`  | The name of the account.      |
 | `environment`  | `null`  | The name of the environment.  |
@@ -132,7 +132,7 @@ the input variables.
 
 | Name           | Description                              |
 |----------------|------------------------------------------|
-| `organisation` | The normalised name of the organisation. |
+| `organization` | The normalised name of the organization. |
 | `application`  | The normalised name of the application.  |
 | `account`      | The normalised name of the account.      |
 | `environment`  | The normalised name of the environment.  |

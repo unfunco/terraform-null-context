@@ -35,9 +35,9 @@ variable "label_order" {
   type        = list(string)
 }
 
-variable "organisation" {
+variable "organization" {
   default     = null
-  description = "The name of the organisation."
+  description = "The name of the organization."
   type        = string
 }
 

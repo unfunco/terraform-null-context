@@ -33,9 +33,9 @@ output "id" {
   value       = local.id
 }
 
-output "organisation" {
-  description = "The normalised name of the organisation."
-  value       = local.organisation
+output "organization" {
+  description = "The normalised name of the organization."
+  value       = local.organization
 }
 
 output "path" {

@@ -25,7 +25,7 @@ import (
 )
 
 type context struct {
-	Organisation string `json:"organisation,omitempty"`
+	Organization string `json:"organization,omitempty"`
 	Application  string `json:"application"`
 	Account      string `json:"account"`
 	Environment  string `json:"environment,omitempty"`
@@ -36,7 +36,7 @@ type context struct {
 // context variables are different, both parts are included in the outputs.
 func TestMultipleEnvironmentAccount(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
-		Organisation: "honestempire",
+		Organization: "honestempire",
 		Application:  "example",
 		Account:      "nonlive",
 		Environment:  "acceptance",
@@ -65,7 +65,7 @@ func TestMultipleEnvironmentAccount(t *testing.T) {
 // context variables are the same, then it only appears once in the outputs.
 func TestSingleEnvironmentAccount(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
-		Organisation: "honestempire",
+		Organization: "honestempire",
 		Application:  "example",
 		Account:      "nonlive",
 		Environment:  "nonlive",
@@ -93,7 +93,7 @@ func TestSingleEnvironmentAccount(t *testing.T) {
 
 func TestHyphenatedStack(t *testing.T) {
 	testContext, _ := json.Marshal(&context{
-		Organisation: "honestempire",
+		Organization: "honestempire",
 		Application:  "example",
 		Account:      "nonlive",
 		Environment:  "uat",
