@@ -13,8 +13,8 @@ infrastructure resources.
 
 ### Requirements
 
-* [Go] 1.19+ for unit-testing
-* [Terraform] 1.3+
+- [Go] 1.20+ for unit-testing
+- [Terraform] 1.3+
 
 ### Installation and usage
 
@@ -103,16 +103,30 @@ bucket_tags = tomap({
 ssm_parameter_name = "/hyperglug/live/assets/API-TOKEN"
 ```
 
+<!-- BEGIN_TF_DOCS -->
+
+#### Inputs
+
+| Name         | Description                   | Type     | Default | Required |
+| ------------ | ----------------------------- | -------- | ------- | :------: |
+| account      | The name of the account.      | `string` | n/a     |   yes    |
+| application  | The name of the application.  | `string` | n/a     |   yes    |
+| environment  | The name of the environment.  | `string` | n/a     |   yes    |
+| organization | The name of the organization. | `string` | n/a     |   yes    |
+| stack        | The name of the stack.        | `string` | n/a     |   yes    |
+
+<!-- END_TF_DOCS -->
+
 #### Variables
 
-| Name           |                       Default                        | Description                                         |
-|----------------|:----------------------------------------------------:|-----------------------------------------------------|
-| `organization` |                        `null`                        | The name of the organization.                       |
-| `application`  |                        `null`                        | The name of the application.                        |
-| `account`      |                        `null`                        | The name of the account.                            |
-| `environment`  |                        `null`                        | The name of the environment.                        |
-| `order`        | `["application", "account", "environment", "stack"]` | List of labels in the order they should be applied. |
-| `stack`        |                        `null`                        | The name of the stack.                              |
+| Name           |                       Default                        | Description                                 |
+| -------------- | :--------------------------------------------------: | ------------------------------------------- |
+| `organization` |                        `null`                        | The name of the organization.               |
+| `application`  |                        `null`                        | The name of the application.                |
+| `account`      |                        `null`                        | The name of the account.                    |
+| `environment`  |                        `null`                        | The name of the environment.                |
+| `order`        | `["application", "account", "environment", "stack"]` | Labels in the order they should be applied. |
+| `stack`        |                        `null`                        | The name of the stack.                      |
 
 #### Outputs
 
@@ -123,7 +137,7 @@ and stack inputs, and can be used for resource names, the path is
 slash-delimited, and can be used for SSM parameter prefixes, for example.
 
 | Name   | Description                                  |
-|--------|----------------------------------------------|
+| ------ | -------------------------------------------- |
 | `id`   | The disambiguated ID of the module.          |
 | `path` | The disambiguated ID delimited with slashes. |
 | `tags` | The normalised map of tags.                  |
@@ -132,7 +146,7 @@ The next table contains the outputs that are really just normalised versions of
 the input variables.
 
 | Name           | Description                              |
-|----------------|------------------------------------------|
+| -------------- | ---------------------------------------- |
 | `organization` | The normalised name of the organization. |
 | `application`  | The normalised name of the application.  |
 | `account`      | The normalised name of the account.      |
@@ -141,11 +155,11 @@ the input variables.
 
 ## License
 
-© 2021 [Daniel Morris]  
+© 2021 [Daniel Morris]\
 Made available under the terms of the [Apache License 2.0](LICENSE.md).
 
-[Daniel Morris]: https://unfun.co
-[Go]: https://go.dev
-[Honest Empire Ltd]: https://www.honestempire.com
-[Terraform]: https://www.terraform.io
-[Terragrunt]: https://terragrunt.gruntwork.io
+[daniel morris]: https://unfun.co
+[go]: https://go.dev
+[honest empire ltd]: https://www.honestempire.com
+[terraform]: https://www.terraform.io
+[terragrunt]: https://terragrunt.gruntwork.io
