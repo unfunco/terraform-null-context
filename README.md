@@ -1,6 +1,6 @@
 # Terraform context module
 
-![CI](https://github.com/unfunco/terraform-null-context/actions/workflows/ci.yaml/badge.svg)
+![CI](https://github.com/unfunco/terraform-null-context/actions/workflows/push.yaml/badge.svg)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-purple.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Terraform module for generating consistent names and tags.
