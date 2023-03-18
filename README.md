@@ -13,8 +13,7 @@ infrastructure resources.
 
 ### Requirements
 
-- [Go] 1.20+ for unit-testing
-- [Terraform] 1.3+
+- [Terraform] 1.4
 
 ### Installation and usage
 
